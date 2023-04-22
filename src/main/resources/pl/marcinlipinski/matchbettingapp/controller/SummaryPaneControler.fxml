@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="SummaryPane" layoutY="550.0" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pl.marcinlipinski.matchbettingapp.controller.SummaryPaneController">
+    <TextField layoutX="180.0" layoutY="14.0" promptText="Twój wkład"/>
+    <Text layoutX="25.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obecny kurs"
+          textAlignment="CENTER"/>
+    <Text layoutX="35.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potencjalna wygrana"/>
+</AnchorPane>
