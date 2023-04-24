@@ -1,15 +1,15 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
+import javafx.scene.layout.AnchorPane;
+import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
+import pl.marcinlipinski.matchbettingapp.service.MatchSerivce;
 
 @Component
 @Controller
@@ -17,18 +17,21 @@ import pl.marcinlipinski.matchbettingapp.model.Match;
 public class MatchRecordList {
     @FXML
     private ListView<Match> lista;
+    private final MatchSerivce matchSerivce;
+    private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
+
+    public MatchRecordList(MatchSerivce matchSerivce, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
+        this.matchSerivce = matchSerivce;
+        this.summaryPaneController = summaryPaneController;
+    }
+
     @FXML
     public void initialize() {
-        ObservableList<Match> data = FXCollections.observableArrayList();
-        data.addAll(new Match("Cheese"), new Match("Horse"), new Match("Jam"));
+        ObservableList<Match> data;
+        data = matchSerivce.post();
 
         lista.setItems(data);
-        lista.setCellFactory(new Callback<ListView<Match>, ListCell<Match>>() {
-            @Override
-            public ListCell<Match> call(ListView<Match> listView) {
-                return new MatchRecordCell();
-            }
-        });
+        lista.setCellFactory(listView -> new MatchRecordCell(summaryPaneController));
     }
 
 
