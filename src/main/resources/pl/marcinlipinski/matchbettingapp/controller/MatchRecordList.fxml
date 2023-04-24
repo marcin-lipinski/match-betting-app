@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.MatchRecordList">
-    <ListView id="lista" fx:id="lista" minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="400.0">
-
-    </ListView>
+    <ComboBox fx:id="leaguesComboBox" prefHeight="40.0" prefWidth="400.0" />
+    <ListView id="lista" fx:id="lista" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="424.0" prefWidth="400.0"/>
 </AnchorPane>

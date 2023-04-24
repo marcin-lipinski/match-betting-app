@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+
+<fx:root xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="40.0" prefWidth="400.0" type="javafx.scene.control.ListCell">
+    <graphic>
+        <AnchorPane fx:id="anch">
+            <ImageView fx:id="leagueLogo" fitHeight="30.0" fitWidth="30.0" layoutX="1.0" layoutY="2.5" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="leagueName" layoutX="40.0" layoutY="15" strokeType="OUTSIDE" strokeWidth="0.0" text="league name" />
+        </AnchorPane>
+    </graphic>
+</fx:root>

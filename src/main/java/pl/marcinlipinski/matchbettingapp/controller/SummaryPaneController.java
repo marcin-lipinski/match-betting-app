@@ -1,13 +1,11 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import pl.marcinlipinski.matchbettingapp.model.Match;
 
 import java.util.HashMap;
 
@@ -41,13 +39,14 @@ public class SummaryPaneController {
 
     public void removeMatch(int id){
         matches.remove(id);
+        calculateOdd();
     }
 
     private void calculateOdd(){
         odd = 0.00;
         for(var matchId : matches.keySet()){
-            if(odd == 0) odd += 0.9 * matches.get(matchId);
-            else odd *= 0.9 * matches.get(matchId);;
+            if(odd == 0.00) odd += 0.9 * matches.get(matchId);
+            else odd *= 0.9 * matches.get(matchId);
         }
         currentOddText.setText(String.valueOf(odd));
     }

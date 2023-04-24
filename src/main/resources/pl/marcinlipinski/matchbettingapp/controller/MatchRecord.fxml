@@ -11,16 +11,16 @@
             <AnchorPane>
                     <Text fx:id="homeTeamName" layoutX="40.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
                     <Text fx:id="awayTeamName" layoutX="280.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
-                    <Text fx:id="matchTimeText" layoutX="130.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyyy-mm-dd hh:mm:ss" />
+                    <Text fx:id="matchTimeText" layoutX="130.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyy-mm-dd hh:mm:ss" />
                  <ImageView fx:id="homeTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="32.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                  <ImageView fx:id="awayTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="272.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
                  <Text fx:id="matchResultText" layoutX="179.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" />
                  <Button fx:id="homeTeamOddButton" layoutX="173.0" layoutY="145.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="X" />
                  <Button fx:id="drawOddButton" layoutX="213.0" layoutY="145.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="2" />
                  <Button fx:id="awayTeamOddButton" layoutX="133.0" layoutY="145.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="1" />
-                 <Text fx:id="homeTeamOddText" layoutX="138.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="30.13671875" />
-                 <Text fx:id="drawOddText" layoutX="178.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="30.13671875" />
-                 <Text fx:id="awayTeamOddText" layoutX="218.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="30.13671875" />
+                 <Text fx:id="homeTeamOddText" layoutX="138.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
+                 <Text fx:id="drawOddText" layoutX="178.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
+                 <Text fx:id="awayTeamOddText" layoutX="218.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
             </AnchorPane>
     </graphic>
 </fx:root>

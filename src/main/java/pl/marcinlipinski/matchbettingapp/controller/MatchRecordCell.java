@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 @Controller
@@ -52,7 +53,7 @@ public class MatchRecordCell extends ListCell<Match> {
     String cstyle = String.format("-fx-background-color: %s;", "#007acc");
     String ustyle = String.format("-fx-background-color: %s;", "#ffffff");
 
-    private FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
+    private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
     public MatchRecordCell(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
         this.summaryPaneController = summaryPaneController;
@@ -75,9 +76,11 @@ public class MatchRecordCell extends ListCell<Match> {
     }
 
     private void addOdd(Button button){
-        summaryPaneController.getController().addMatch(this.itemProperty().get().getId(), Double.parseDouble(buttons.get(selected).getText()));
-        selected.setStyle(cstyle);
         selected = button;
+        selected.setStyle(cstyle);
+        var matchId = this.itemProperty().get().getId();
+        var odd = Double.parseDouble(buttons.get(selected).getText());
+        summaryPaneController.getController().addMatch(matchId, odd);
     }
 
     private void removeOdd(){
@@ -101,6 +104,7 @@ public class MatchRecordCell extends ListCell<Match> {
     @Override
     protected void updateItem(Match item, boolean empty) {
         super.updateItem(item, empty);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         if(empty || item == null) {
             setText(null);
@@ -110,7 +114,7 @@ public class MatchRecordCell extends ListCell<Match> {
             homeTeamName.setText(item.getHomeTeam());
             awayTeamName.setText(item.getAwayTeam());
             matchResultText.setText(item.getHomeTeamScore() + ":" + item.getAwayTeamScore());
-            matchTimeText.setText(item.getStartTime().toString());
+            matchTimeText.setText(item.getStartTime().format(formatter));
             homeTeamOddText.setText(item.getHomeTeamOdd().toString());
             awayTeamOddText.setText(item.getAwayTeamOdd().toString());
             drawOddText.setText(item.getDrawTeamOdd().toString());
