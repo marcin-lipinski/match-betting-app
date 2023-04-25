@@ -1,5 +1,6 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -78,14 +80,14 @@ public class MatchRecordCell extends ListCell<Match> {
     private void addOdd(Button button){
         selected = button;
         selected.setStyle(cstyle);
-        var matchId = this.itemProperty().get().getId();
+        var matchId = this.itemProperty().get();
         var odd = Double.parseDouble(buttons.get(selected).getText());
         summaryPaneController.getController().addMatch(matchId, odd);
     }
 
     private void removeOdd(){
         selected = null;
-        summaryPaneController.getController().removeMatch(this.itemProperty().get().getId());
+        summaryPaneController.getController().removeMatch(this.itemProperty().get());
     }
 
     private void loadFXML() {
@@ -99,6 +101,7 @@ public class MatchRecordCell extends ListCell<Match> {
             throw new RuntimeException(e);
         }
     }
+
 
     @SneakyThrows
     @Override
@@ -121,7 +124,6 @@ public class MatchRecordCell extends ListCell<Match> {
 
             homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
             awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));
-
 
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }

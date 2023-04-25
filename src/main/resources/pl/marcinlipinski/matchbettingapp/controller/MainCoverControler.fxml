@@ -16,13 +16,12 @@
         <Text fx:id="accountBalanceLabel" layoutX="350.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0"
               text="0.00"/>
     </AnchorPane>
-    <TabPane layoutY="50.0" prefHeight="500.0" prefWidth="400.0" stylesheets="@styles.css"
-             tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutY="50.0" prefHeight="500.0" prefWidth="400.0" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE">
         <Tab closable="false" text="Mecze">
             <fx:include source="MatchRecordList.fxml"/>
         </Tab>
         <Tab closable="false" text="Moje zakłady">
-            <fx:include source="MatchRecordList.fxml"/>
+            <fx:include source="BetList.fxml"/>
         </Tab>
     </TabPane>
     <fx:include source="SummaryPane.fxml"/>

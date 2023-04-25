@@ -17,25 +17,29 @@ import java.util.List;
 
 @Service
 public class MatchSerivce {
-    String apiURL = "https://sportscore1.p.rapidapi.com/leagues/search";
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    ObservableList<Match> listOfMatches;
+
+    public MatchSerivce(){
+        listOfMatches = FXCollections.observableArrayList();
+    }
 
     public ObservableList<Match> post(int leagueId){
-        ObservableList<Match> result = FXCollections.observableArrayList();
-        String url = "https://sportscore1.p.rapidapi.com/events/search?sport_id=1&date_end=2023-04-21&date_start=2023-04-20&league_id=" + leagueId;
+        listOfMatches.clear();
+        LocalDate today = LocalDate.now();
+        LocalDate nextWeek = today.plusWeeks(1);
+
+        String url = "https://sportscore1.p.rapidapi.com/events/search?sport_id=1&date_end=" + nextWeek + "&date_start=" + today + "&league_id=" + leagueId;
         var response = Unirest.post(url)
-                .header("X-RapidAPI-Key", "c59b703d6emsh4913a0e90fbfc7bp15ef3bjsnd80a5991c64e")
+                .header("X-RapidAPI-Key", "5f1ba88bacmsha7c19bc0fb48590p1da4aajsn85ad845d8314")
                 .header("X-RapidAPI-Host", "sportscore1.p.rapidapi.com").asJson().body();
-
-
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         try{
             var json = new JSONObject(response).getJSONArray("array").getJSONObject(0).getJSONArray("data");
 
             for(int i = 0 ; i < json.length(); i++){
                 var j = json.getJSONObject(i);
-                result.add(Match.builder()
+                listOfMatches.add(Match.builder()
                         .id(j.getInt("id"))
                         .status(j.getString("status"))
                         .homeTeam(j.getJSONObject("home_team").getString("name"))
@@ -43,21 +47,26 @@ public class MatchSerivce {
                         .homeTeamLogo(j.getJSONObject("home_team").getString("logo"))
                         .awayTeamLogo(j.getJSONObject("away_team").getString("logo"))
                         .startTime(LocalDateTime.parse(j.getString("start_at"), formatter))
-                        .homeTeamScore(j.getJSONObject("home_score").getInt("normal_time"))
-                        .awayTeamScore(j.getJSONObject("away_score").getInt("normal_time"))
+                        .homeTeamScore(0)
+                        .awayTeamScore(0)
                         .winnerCode(j.getInt("winner_code"))
-                        .homeTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_1").getDouble("value"))
-                        .drawTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_X").getDouble("value"))
-                        .awayTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_2").getDouble("value"))
+                        .homeTeamOdd(1.00)
+                        .drawTeamOdd(1.00)
+                        .awayTeamOdd(1.00)
                         .leagueName(j.getJSONObject("league").getString("name"))
                         .leagueName(j.getJSONObject("league").getString("logo")).build());
 
-                System.out.println(result.get(i).getHomeTeam() + "nic");
+                if(!j.isNull("main_odds")){
+                    listOfMatches.get(i).setHomeTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_1").getDouble("value"));
+                    listOfMatches.get(i).setAwayTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_2").getDouble("value"));
+                    listOfMatches.get(i).setDrawTeamOdd(j.getJSONObject("main_odds").getJSONObject("outcome_X").getDouble("value"));
+                }
             }
         }catch(Exception e){
-            return result;
+            System.out.println(e);
+            return listOfMatches;
         }
-
-        return result;
+        System.out.println(listOfMatches.size());
+        return listOfMatches;
     }
 }

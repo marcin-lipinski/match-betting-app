@@ -8,10 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -41,14 +38,5 @@ public class Match {
     public Match(String gcc) {
         super();
         homeTeam = gcc;
-    }
-
-    @Override
-    public String toString(){
-        return id + status + homeTeam + awayTeam + homeTeamScore + awayTeamScore;
-    }
-
-    public String getHomeTeam(){
-        return homeTeam;
     }
 }
