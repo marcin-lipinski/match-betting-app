@@ -9,20 +9,20 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView
-public class MainCoverControler {
+@FxmlView("MainWindow.fxml")
+public class MainWindowController {
     @FXML
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane;
-    private final FxControllerAndView<MatchRecordList, AnchorPane> matchRecordListController;
+    private final FxControllerAndView<MatchListController, AnchorPane> matchRecordListController;
     @FXML
-    private final FxControllerAndView<AccountResetControler, AnchorPane> accountResetDialog;
+    private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
     @FXML
     public Button openResetAccountDialogButton;
     @FXML
     public Text accountBalanceLabel;
 
 
-    public MainCoverControler(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchRecordList, AnchorPane> matchRecordList, FxControllerAndView<AccountResetControler, AnchorPane> accountResetDialog) {
+    public MainWindowController(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchListController, AnchorPane> matchRecordList, FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog) {
         this.summaryPane = summaryPane;
         this.matchRecordListController = matchRecordList;
         this.accountResetDialog = accountResetDialog;

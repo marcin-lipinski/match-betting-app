@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-
+import pl.marcinlipinski.matchbettingapp.service.MatchService;
 import java.util.HashMap;
 
 @Component
@@ -19,37 +19,66 @@ import java.util.HashMap;
 @FxmlView
 public class SummaryPaneController {
     @FXML
-    protected TextField bidTextField;
+    public Text possibleWinValueText;
+
     @FXML
-    private Text currentOddText;
+    private TextField bidTextField;
     @FXML
-    private Text potentialWinText;
-    @FXML
-    private Text potentialWinValueText;
+    private Text oddValueText;
     @FXML
     private Button createBetButton;
-    private double odd;
+    private double oddValue;
+    private double inputValue;
+    private double possibleWinValue;
     private HashMap<Match, Double> matches;
-    private BetService betService;
-    private FxControllerAndView<MainCoverControler, AnchorPane> mainCoverControler;
+    private final BetService betService;
+    private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler;
+    private final MatchService matchSerivce;
+    private Text inputValueText;
 
-    public SummaryPaneController(BetService betService, FxControllerAndView<MainCoverControler, AnchorPane> mainCoverControler) {
+    public SummaryPaneController(BetService betService, FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler, MatchService matchSerivce) {
         this.betService = betService;
-        this.mainCoverControler = mainCoverControler;
+        this.mainWindowControler = mainWindowControler;
+        this.matchSerivce = matchSerivce;
     }
 
 
     @FXML
     public void initialize() {
         matches = new HashMap<>();
-        odd = 0.00;
+        oddValue = 0.00;
         createBetButton.setOnMouseClicked(mouseEvent -> createBet());
+        bidTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[0123456789.]*")) {
+                bidTextField.setText(newValue.replaceAll("\\D", ""));
+            }
+            if(oldValue.contains(".") && newValue.chars().filter(ch -> ch=='.').count() > 1){
+                bidTextField.setText(oldValue);
+            }
+            if(oldValue.contains(".") && newValue.length() >= oldValue.length()){
+
+                if(oldValue.indexOf(".") == oldValue.length() - 3) bidTextField.setText(oldValue);
+            }
+            if(oldValue.isEmpty()) return;
+            inputValue = Double.parseDouble(bidTextField.getText());
+            possibleWinValue = oddValue * inputValue;
+            setTexts(possibleWinValue, oddValue, inputValue);
+        });
+    }
+    
+    private void setTexts(double pW, double oV, double iV){
+        possibleWinValueText.setText(String.valueOf(pW));
+        oddValueText.setText(String.valueOf(oV));
     }
 
     private void createBet(){
-        odd = 0.00;
-        var value = Double.parseDouble(bidTextField.getText());
-        if(matches.size() > 0) betService.createBet(value, odd, matches.keySet().stream().toList());
+        var prevBalance = Double.parseDouble(mainWindowControler.getController().accountBalanceLabel.getText());
+        if(prevBalance >= inputValue) return;
+        if(matches.size() > 0){
+            mainWindowControler.getController().accountBalanceLabel.setText(String.valueOf(prevBalance - inputValue));
+            var result = betService.createBet(inputValue, oddValue, matches.keySet().stream().toList());
+            matchSerivce.saveAll(result);
+        }
     }
 
     public void addMatch(Match match, double value){
@@ -64,12 +93,12 @@ public class SummaryPaneController {
     }
 
     private void calculateOdd(){
-        odd = 0.00;
+        oddValue = 0.00;
         for(var matchId : matches.keySet()){
-            if(odd == 0.00) odd += 0.9 * matches.get(matchId);
-            else odd *= 0.9 * matches.get(matchId);
+            if(oddValue == 0.00) oddValue += 0.9 * matches.get(matchId);
+            else oddValue *= 0.9 * matches.get(matchId);
         }
-        currentOddText.setText(String.valueOf(odd));
+        oddValueText.setText(String.valueOf(oddValue));
     }
 
 }

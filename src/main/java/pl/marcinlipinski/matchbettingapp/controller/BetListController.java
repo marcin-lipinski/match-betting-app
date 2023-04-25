@@ -8,10 +8,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Bet;
-import pl.marcinlipinski.matchbettingapp.model.League;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-import pl.marcinlipinski.matchbettingapp.service.LeagueService;
-import pl.marcinlipinski.matchbettingapp.service.MatchSerivce;
 
 @Component
 @Controller
@@ -20,16 +17,18 @@ public class BetListController {
     @FXML
     private ListView<Bet> betListView;
     private final BetService betSerivce;
-    private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
-    public BetListController(BetService betService, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController, LeagueService leagueService) {
-        this.summaryPaneController = summaryPaneController;
+    FxControllerAndView<BetMatchListController, AnchorPane> betMatchList;
+
+
+    public BetListController(BetService betService, FxControllerAndView<BetMatchListController, AnchorPane> betMatchList) {
+        this.betMatchList = betMatchList;
         this.betSerivce = betService;
     }
 
     @FXML
     public void initialize() {
-        betListView.setCellFactory(listView -> new BetCell(summaryPaneController));
+        betListView.setCellFactory(listView -> new BetCell(this));
         searchForBets();
     }
 

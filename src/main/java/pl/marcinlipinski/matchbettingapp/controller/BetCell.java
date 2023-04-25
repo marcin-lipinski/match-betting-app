@@ -30,15 +30,17 @@ public class BetCell extends ListCell<Bet> {
     @FXML
     private Button refreshButton;
 
-    FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
-    public BetCell(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
-        this.summaryPaneController = summaryPaneController;
+    BetListController betListController;
+
+    public BetCell(BetListController betListController) {
+        this.betListController = betListController;
         loadFXML();
         this.setOnMouseClicked(mouseEvent ->
             {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     if(mouseEvent.getClickCount() == 2){
-                        System.out.println("Double clicked");
+                        this.betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
+                        this.betListController.betMatchList.getController().show();
                     }
             }
         });
@@ -69,7 +71,7 @@ public class BetCell extends ListCell<Bet> {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
-            idValueText.setText(item.getId().toString());
+            idValueText.setText(String.valueOf(item.getId()));
             betDateText.setText(item.getEndDate().format(formatter));
             oddValueText.setText(String.valueOf(item.getBetValue()));
             potentialWinValueText.setText(String.valueOf(item.getPotentialWinValue()));

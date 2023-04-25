@@ -6,7 +6,7 @@
 
 
 <AnchorPane prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="pl.marcinlipinski.matchbettingapp.controller.AccountResetControler" fx:id="dialog">
+            fx:controller="pl.marcinlipinski.matchbettingapp.controller.AccountResetController" fx:id="dialog">
    <Button fx:id="resetAccountButton" layoutX="147.0" layoutY="63.0" mnemonicParsing="false" text="Reset"/>
    <Text layoutX="15.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0"
          text="Do you want reset all your bets and your account balance?" textAlignment="CENTER"/>

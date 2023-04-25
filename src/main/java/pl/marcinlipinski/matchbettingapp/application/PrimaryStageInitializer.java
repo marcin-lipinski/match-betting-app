@@ -6,7 +6,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-import pl.marcinlipinski.matchbettingapp.controller.MainCoverControler;
+import pl.marcinlipinski.matchbettingapp.controller.MainWindowController;
 
 @Component
 public class PrimaryStageInitializer implements ApplicationListener<StageReadyEvent> {
@@ -21,7 +21,7 @@ public class PrimaryStageInitializer implements ApplicationListener<StageReadyEv
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.stage;
-        Scene scene = new Scene(fxWeaver.loadView(MainCoverControler.class));
+        Scene scene = new Scene(fxWeaver.loadView(MainWindowController.class));
         stage.setScene(scene);
         stage.show();
     }

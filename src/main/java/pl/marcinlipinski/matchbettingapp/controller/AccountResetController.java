@@ -6,14 +6,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxControllerAndView;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
+import pl.marcinlipinski.matchbettingapp.service.MatchService;
 
 @Component
-public class AccountResetControler {
+@Controller
+@FxmlView("AccountResetWindow.fxml")
+public class AccountResetController {
     @FXML
-    private final FxControllerAndView<MainCoverControler, AnchorPane> mainCoverControler;
+    private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
     private final BetService betService;
+
+    private final MatchService matchService;
     private Stage stage;
 
     @FXML
@@ -21,9 +28,10 @@ public class AccountResetControler {
     @FXML
     private AnchorPane dialog;
 
-    public AccountResetControler(FxControllerAndView<MainCoverControler, AnchorPane> mainCoverControler, BetService betService) {
-        this.mainCoverControler = mainCoverControler;
+    public AccountResetController(FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, BetService betService, MatchService matchService) {
+        this.mainWindowController = mainWindowController;
         this.betService = betService;
+        this.matchService = matchService;
     }
 
     @FXML
@@ -34,7 +42,8 @@ public class AccountResetControler {
         resetAccountButton.setOnAction(
                 actionEvent -> {
                     betService.deleteAll();
-                    mainCoverControler.getController().accountBalanceLabel.setText("0.00");
+                    matchService.deleteAll();
+                    mainWindowController.getController().accountBalanceLabel.setText("20.00");
                     stage.close();
                 }
         );

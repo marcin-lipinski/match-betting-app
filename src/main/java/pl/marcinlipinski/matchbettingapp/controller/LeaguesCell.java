@@ -2,7 +2,6 @@ package pl.marcinlipinski.matchbettingapp.controller;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,14 +24,14 @@ import java.time.format.DateTimeFormatter;
 @Controller
 @FxmlView
 public class LeaguesCell extends ListCell<League> {
-    MatchRecordList matchRecordList;
+    MatchListController matchRecordList;
     @FXML
     private ImageView leagueLogo;
     @FXML
     private Text leagueName;
     @FXML
     private AnchorPane anch;
-    public LeaguesCell(MatchRecordList matchRecordList) {
+    public LeaguesCell(MatchListController matchRecordList) {
         super();
         this.matchRecordList = matchRecordList;
         loadFXML();

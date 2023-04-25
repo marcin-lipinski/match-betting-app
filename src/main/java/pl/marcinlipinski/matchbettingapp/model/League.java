@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class League{
     @Id
-    private Integer id;
+    private int id;
     private String name;
     private String logo;
 }
