@@ -1,6 +1,5 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,11 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 

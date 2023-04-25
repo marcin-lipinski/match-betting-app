@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-import pl.marcinlipinski.matchbettingapp.service.MatchService;
 
 @Component
 @Controller
@@ -27,12 +26,10 @@ public class BetMatchListController {
     private AnchorPane dialog;
     @FXML
     private ProgressBar progressBar;
-    private BetService betService;
-    private MatchService matchService;
+    private final BetService betService;
 
-    public BetMatchListController(BetService betService, MatchService matchService) {
+    public BetMatchListController(BetService betService) {
         this.betService = betService;
-        this.matchService = matchService;
     }
 
     @SneakyThrows

@@ -21,12 +21,12 @@ public class MatchListController {
     public ComboBox leaguesComboBox;
     @FXML
     private ListView<Match> lista;
-    private final MatchService matchSerivce;
+    private final MatchService matchService;
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
     private final LeagueService leagueService;
 
     public MatchListController(MatchService matchService, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController, LeagueService leagueService) {
-        this.matchSerivce = matchService;
+        this.matchService = matchService;
         this.summaryPaneController = summaryPaneController;
         this.leagueService = leagueService;
     }
@@ -50,7 +50,7 @@ public class MatchListController {
 
     public void searchForMatches(int leagueId){
         lista.getItems().clear();
-        lista.setItems(matchSerivce.post(leagueId));
+        lista.setItems(matchService.post(leagueId));
         lista.refresh();
     }
 }

@@ -8,7 +8,7 @@ import pl.marcinlipinski.matchbettingapp.repositor.LeagueRepository;
 
 @Service
 public class LeagueService {
-    private LeagueRepository leagueRepository;
+    private final LeagueRepository leagueRepository;
 
     public LeagueService(LeagueRepository leagueRepository) {
         this.leagueRepository = leagueRepository;

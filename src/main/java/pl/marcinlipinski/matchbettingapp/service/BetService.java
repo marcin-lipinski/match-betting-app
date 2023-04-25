@@ -15,8 +15,8 @@ import java.util.List;
 public class BetService {
     private final BetRepository betRepository;
     private final MatchService matchService;
-    private ObservableList<Bet> listOfBets;
-    private ObservableList<Match> listOfMatches;
+    private final ObservableList<Bet> listOfBets;
+    private final ObservableList<Match> listOfMatches;
 
     public BetService(BetRepository betRepository, MatchService matchService) {
         this.betRepository = betRepository;

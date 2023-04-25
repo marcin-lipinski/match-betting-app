@@ -5,7 +5,6 @@ import io.joshworks.restclient.http.Json;
 import io.joshworks.restclient.http.Unirest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.SneakyThrows;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,14 +46,22 @@ public class MatchService {
     }
 
     private JSONArray responseToDataArray(Json response){
-        return new JSONObject(response).getJSONArray("array").getJSONObject(0).getJSONArray("data");
+        try {
+            return new JSONObject(response).getJSONArray("array").getJSONObject(0).getJSONArray("data");
+        }
+        catch(Exception ex){
+            System.out.println("API access expired.");
+            return new JSONArray();
+        }
     }
     private JSONObject responseToDataObject(Json response){
-        return new JSONObject(response).getJSONArray("array").getJSONObject(0).getJSONObject("data");
-    }
-
-    public void saveAll(List<Match> matches){
-        for(var match : matches) save(match);
+        try {
+            return new JSONObject(response).getJSONArray("array").getJSONObject(0).getJSONObject("data");
+        }
+        catch(Exception ex){
+            System.out.println("API access expired.");
+            return new JSONObject();
+        }
     }
 
     public List<Match> getAllByBetId(long betId){
@@ -77,7 +83,6 @@ public class MatchService {
         var refreshedMatch = parseJSON(jsonArray);
         matchRepository.deleteById(refreshedMatch.getId());
         matchRepository.save(refreshedMatch);
-
     }
 
     public void save(Match match){

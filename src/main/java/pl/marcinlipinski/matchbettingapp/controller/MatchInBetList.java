@@ -1,9 +1,7 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
@@ -16,7 +14,6 @@ import pl.marcinlipinski.matchbettingapp.model.Match;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 
 @Controller
 @FxmlView

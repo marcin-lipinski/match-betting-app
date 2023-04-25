@@ -11,9 +11,9 @@
     <Text fx:id="accountBalanceText" layoutX="350.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
 
     <TextField fx:id="bidTextField" layoutX="235.0" layoutY="619.0" promptText="Twój wkład" />
-    <Text fx:id="oddText" layoutX="24.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obecny kurs" textAlignment="CENTER" />
+    <Text layoutX="24.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obecny kurs" textAlignment="CENTER" />
     <Text fx:id="oddValueText" layoutX="45.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[wartosc kursu]" textAlignment="CENTER" />
-    <Text fx:id="possibleWinText" layoutX="180.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potencjalna wygrana" />
+    <Text layoutX="180.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potencjalna wygrana" />
     <Text fx:id="possibleWinValueText" layoutX="220.0" layoutY="676.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
     <Button fx:id="createBetButton" layoutX="115.0" layoutY="620.0"/>
 </AnchorPane>

@@ -6,7 +6,7 @@ import pl.marcinlipinski.matchbettingapp.repositor.UserRepository;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final long userId = 1;
 
     public UserService(UserRepository userRepository) {
@@ -28,6 +28,7 @@ public class UserService {
         userRepository.deleteAll();
         userRepository.save(user);
     }
+
     public void decreaseAccountBalance(double value){
         var user = getUser();
         System.out.println(user.getAccountBalance());

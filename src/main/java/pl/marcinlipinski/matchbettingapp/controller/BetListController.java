@@ -1,11 +1,8 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
-import jdk.jfr.Event;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;

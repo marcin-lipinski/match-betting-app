@@ -1,7 +1,7 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import com.sun.javafx.menu.MenuItemBase;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-import pl.marcinlipinski.matchbettingapp.service.MatchService;
 import pl.marcinlipinski.matchbettingapp.service.UserService;
 
 import java.util.HashMap;
@@ -37,30 +36,21 @@ public class SummaryPaneController {
     private double possibleWinValue;
     private HashMap<Match, Double> matches;
     private final BetService betService;
-    private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler;
-
-    private final MatchService matchSerivce;
-    private Text inputValueText;
-    private UserService userService;
+    private final UserService userService;
     @FXML
     private Button openResetAccountDialogButton;
     @FXML
     private Text accountBalanceText;
 
-    public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, BetService betService, FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler, MatchService matchSerivce, UserService userService) {
+    public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, BetService betService, UserService userService) {
         this.betService = betService;
-        this.mainWindowControler = mainWindowControler;
-        this.matchSerivce = matchSerivce;
         this.userService = userService;
         this.accountResetDialog = accountResetDialog;
     }
 
-
     @FXML
     public void initialize() {
-        openResetAccountDialogButton.setOnAction(actionEvent -> {
-            accountResetDialog.getController().show();
-        });
+        openResetAccountDialogButton.setOnAction(this::handle);
         matches = new HashMap<>();
         oddValue = 0.00;
         createBetButton.setOnMouseClicked(mouseEvent -> createBet());
@@ -78,11 +68,11 @@ public class SummaryPaneController {
             if(newValue.isEmpty()) return;
             inputValue = Double.parseDouble(bidTextField.getText());
             possibleWinValue = oddValue * inputValue;
-            setTexts(possibleWinValue, oddValue, inputValue);
+            setTexts(possibleWinValue, oddValue);
         });
     }
     
-    private void setTexts(double pW, double oV, double iV){
+    private void setTexts(double pW, double oV){
         possibleWinValueText.setText(String.valueOf(pW));
         oddValueText.setText(String.valueOf(oV));
     }
@@ -133,4 +123,7 @@ public class SummaryPaneController {
         thread.start();
     }
 
+    private void handle(ActionEvent actionEvent) {
+        accountResetDialog.getController().show();
+    }
 }
