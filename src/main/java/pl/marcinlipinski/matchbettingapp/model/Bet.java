@@ -25,7 +25,9 @@ public class Bet implements Serializable {
     @Id
     private long id;
     private LocalDateTime endDate;
-    private double betValue;
-    private double potentialWinValue;
+    private LocalDateTime betDate;
+    private double inputValue;
+    private double oddValue;
+    private double possibleWinValue;
 
 }

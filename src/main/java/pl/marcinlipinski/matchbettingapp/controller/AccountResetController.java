@@ -19,8 +19,6 @@ import pl.marcinlipinski.matchbettingapp.service.UserService;
 public class AccountResetController {
     @FXML
     private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
-    @FXML
-    private final FxControllerAndView<TopLabel, AnchorPane> topLabel;
     private final UserService userService;
     private final BetService betService;
 
@@ -31,13 +29,14 @@ public class AccountResetController {
     private Button resetAccountButton;
     @FXML
     private AnchorPane dialog;
+    private FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
-    public AccountResetController(FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, FxControllerAndView<TopLabel, AnchorPane> topLabel, UserService userService, BetService betService, MatchService matchService) {
+    public AccountResetController(FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, UserService userService, BetService betService, MatchService matchService, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
         this.mainWindowController = mainWindowController;
-        this.topLabel = topLabel;
         this.userService = userService;
         this.betService = betService;
         this.matchService = matchService;
+        this.summaryPaneController = summaryPaneController;
     }
 
     @FXML
@@ -50,7 +49,7 @@ public class AccountResetController {
                     betService.deleteAll();
                     matchService.deleteAll();
                     userService.newUser();
-                    topLabel.getController().refreshAccountBalanceText();
+                    summaryPaneController.getController().refreshAccountBalanceText();
                     stage.close();
                 }
         );

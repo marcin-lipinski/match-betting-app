@@ -39,8 +39,8 @@ public class BetCell extends ListCell<Bet> {
             {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     if(mouseEvent.getClickCount() == 2){
-                        this.betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
-                        this.betListController.betMatchList.getController().show();
+                        betListController.betMatchList.getController().show();
+                        betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
                     }
             }
         });
@@ -73,9 +73,9 @@ public class BetCell extends ListCell<Bet> {
         } else {
             idValueText.setText(String.valueOf(item.getId()));
             betDateText.setText(item.getEndDate().format(formatter));
-            oddValueText.setText(String.valueOf(item.getBetValue()));
-            potentialWinValueText.setText(String.valueOf(item.getPotentialWinValue()));
-            insetValueText.setText(String.valueOf(item.getBetValue()));
+            oddValueText.setText(String.valueOf(item.getOddValue()));
+            potentialWinValueText.setText(String.valueOf(item.getPossibleWinValue()));
+            insetValueText.setText(String.valueOf(item.getInputValue()));
 
 
 

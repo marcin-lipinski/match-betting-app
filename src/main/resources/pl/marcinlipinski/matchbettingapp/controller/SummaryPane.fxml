@@ -5,11 +5,15 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane id="SummaryPane" layoutY="550.0" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.SummaryPaneController">
-    <TextField fx:id="bidTextField" layoutX="235.0" layoutY="19.0" promptText="Twój wkład" />
-    <Text fx:id="oddText" layoutX="24.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obecny kurs" textAlignment="CENTER" />
-    <Text fx:id="oddValueText" layoutX="45.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[wartosc kursu]" textAlignment="CENTER" />
-    <Text fx:id="possibleWinText" layoutX="180.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potencjalna wygrana" />
-    <Text fx:id="possibleWinValueText" layoutX="220.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
-    <Button fx:id="createBetButton" layoutX="115.0" layoutY="20.0"/>
+<AnchorPane id="SummaryPane" stylesheets="@styles.css"  prefHeight="650.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.SummaryPaneController">
+    <Button fx:id="openResetAccountDialogButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" text="Reset konta" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" />
+    <Text layoutX="248.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account balance:" wrappingWidth="79.0" />
+    <Text fx:id="accountBalanceText" layoutX="350.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
+
+    <TextField fx:id="bidTextField" layoutX="235.0" layoutY="619.0" promptText="Twój wkład" />
+    <Text fx:id="oddText" layoutX="24.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Obecny kurs" textAlignment="CENTER" />
+    <Text fx:id="oddValueText" layoutX="45.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[wartosc kursu]" textAlignment="CENTER" />
+    <Text fx:id="possibleWinText" layoutX="180.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potencjalna wygrana" />
+    <Text fx:id="possibleWinValueText" layoutX="220.0" layoutY="676.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
+    <Button fx:id="createBetButton" layoutX="115.0" layoutY="620.0"/>
 </AnchorPane>

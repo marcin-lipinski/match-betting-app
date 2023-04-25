@@ -16,18 +16,15 @@ public class MainWindowController {
     @FXML
     private final FxControllerAndView<MatchListController, AnchorPane> matchRecordListController;
     @FXML
-    private final FxControllerAndView<TopLabel, AnchorPane> topLabel;
-    @FXML
     private final UserService userService;
     @FXML
     private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
     private final FxControllerAndView<BetListController, AnchorPane> betListController;
 
 
-    public MainWindowController(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchListController, AnchorPane> matchRecordList, FxControllerAndView<TopLabel, AnchorPane> topLabel, UserService userService, FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<BetListController, AnchorPane> betListController) {
+    public MainWindowController(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchListController, AnchorPane> matchRecordList, UserService userService, FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<BetListController, AnchorPane> betListController) {
         this.summaryPane = summaryPane;
         this.matchRecordListController = matchRecordList;
-        this.topLabel = topLabel;
         this.userService = userService;
         this.accountResetDialog = accountResetDialog;
         this.betListController = betListController;

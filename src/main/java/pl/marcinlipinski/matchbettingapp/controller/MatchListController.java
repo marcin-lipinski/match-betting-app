@@ -25,8 +25,8 @@ public class MatchListController {
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
     private final LeagueService leagueService;
 
-    public MatchListController(MatchService matchSerivce, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController, LeagueService leagueService) {
-        this.matchSerivce = matchSerivce;
+    public MatchListController(MatchService matchService, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController, LeagueService leagueService) {
+        this.matchSerivce = matchService;
         this.summaryPaneController = summaryPaneController;
         this.leagueService = leagueService;
     }
@@ -45,7 +45,7 @@ public class MatchListController {
         });
 
         leaguesComboBox.getSelectionModel().selectFirst();
-        searchForMatches(((League)leaguesComboBox.getValue()).getId());
+        //searchForMatches(((League)leaguesComboBox.getValue()).getId());
     }
 
     public void searchForMatches(int leagueId){

@@ -9,20 +9,18 @@ import pl.marcinlipinski.matchbettingapp.model.Bet;
 import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class BetService {
     private final BetRepository betRepository;
-    private final MatchRepository matchRepository;
+    private final MatchService matchService;
     private ObservableList<Bet> listOfBets;
     private ObservableList<Match> listOfMatches;
 
-    public BetService(BetRepository betRepository, MatchRepository matchRepository) {
+    public BetService(BetRepository betRepository, MatchService matchService) {
         this.betRepository = betRepository;
-        this.matchRepository = matchRepository;
+        this.matchService = matchService;
         listOfBets = FXCollections.observableArrayList();
         listOfMatches = FXCollections.observableArrayList();
     }
@@ -30,20 +28,21 @@ public class BetService {
     public void deleteAll(){
         betRepository.deleteAll();
     }
-    public List<Match> createBet(double betValue, double potentialWinValue, List<Match> matches){
+    public void createBet(double inputValue, double oddValue, double possibleWinValue, List<Match> matches){
         var endDate = matches.stream().map(m -> m.getStartTime().plusMinutes(150)).max(LocalDateTime::compareTo).orElse(LocalDateTime.now());
+        long betId = betRepository.findAll().size();
 
-        long betId = betRepository.findAll().size() - 1;
-
-        Bet bet = new Bet();
-        bet.setId(betId);
-        bet.setBetValue(betValue);
-        bet.setEndDate(endDate);
-        bet.setPotentialWinValue(potentialWinValue);
-        matches.forEach(match -> match.setBetId(betId));
+        Bet bet = Bet.builder()
+                .id(betId)
+                .endDate(endDate)
+                .possibleWinValue(possibleWinValue)
+                .oddValue(oddValue)
+                .inputValue(inputValue)
+                .betDate(LocalDateTime.now()).build();
         betRepository.save(bet);
+        matches.forEach(match -> match.setBetId(betId));
+        matches.forEach(matchService::save);
 
-        return matches;
     }
 
     public ObservableList<Bet> getAll(){
@@ -54,10 +53,7 @@ public class BetService {
 
     public ObservableList<Match> getMatchesByBetId(long betId) {
         listOfMatches.clear();
-        listOfMatches.addAll(matchRepository.findAll().stream().filter(m -> m.getBetId() == betId).toList());
-        System.out.println(
-                listOfMatches.size()
-        );
+        listOfMatches.addAll(matchService.getAllByBetId(betId));
         return listOfMatches;
     }
 }

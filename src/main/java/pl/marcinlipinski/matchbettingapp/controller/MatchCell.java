@@ -51,7 +51,7 @@ public class MatchCell extends ListCell<Match> {
     private ImageView homeTeamLogo;
     @FXML
     private ImageView awayTeamLogo;
-    private Button selected;
+    private Button selected = null;
     String cstyle = String.format("-fx-background-color: %s;", "#007acc");
     String ustyle = String.format("-fx-background-color: %s;", "#ffffff");
 
@@ -69,16 +69,24 @@ public class MatchCell extends ListCell<Match> {
 
     private void initializeButtons(){
         for(var button : buttons.keySet()){
-            button.setOnAction(actionEvent -> {
+            button.setStyle(ustyle);
+            button.setOnMouseClicked(mouseEvent -> {
                 button.setStyle(ustyle);
-                if(selected != button) addOdd(button);
-                else removeOdd();
+                if(summaryPaneController.getController().doContain(this.itemProperty().get())){
+                    if(selected == button){
+                        removeOdd();
+                        selected = null;
+                    }
+                }
+                else{
+                    selected = button;
+                    addOdd(button);
+                }
             });
         }
     }
 
     private void addOdd(Button button){
-        selected = button;
         selected.setStyle(cstyle);
         var matchId = this.itemProperty().get();
         var odd = Double.parseDouble(buttons.get(selected).getText());
@@ -86,7 +94,6 @@ public class MatchCell extends ListCell<Match> {
     }
 
     private void removeOdd(){
-        selected = null;
         summaryPaneController.getController().removeMatch(this.itemProperty().get());
     }
 
