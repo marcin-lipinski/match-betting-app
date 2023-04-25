@@ -5,7 +5,6 @@ import io.joshworks.restclient.http.Unirest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
@@ -19,11 +18,11 @@ import java.util.List;
 public class MatchService {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     ObservableList<Match> listOfMatches;
-    @Autowired
-    MatchRepository matchRepository;
+    final MatchRepository matchRepository;
 
-    public MatchService(){
+    public MatchService(MatchRepository matchRepository){
         listOfMatches = FXCollections.observableArrayList();
+        this.matchRepository = matchRepository;
     }
 
     public ObservableList<Match> post(int leagueId){
@@ -74,6 +73,7 @@ public class MatchService {
         for(var m : matches){
             if(matchRepository.existsById(m.getId())) continue;
             matchRepository.save(m);
+            System.out.println("zapisano");
         };
     }
 

@@ -1,5 +1,6 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
 import pl.marcinlipinski.matchbettingapp.service.MatchService;
+import pl.marcinlipinski.matchbettingapp.service.UserService;
+
 import java.util.HashMap;
 
 @Component
@@ -33,13 +36,18 @@ public class SummaryPaneController {
     private HashMap<Match, Double> matches;
     private final BetService betService;
     private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler;
+    @FXML
+    private final FxControllerAndView<TopLabel, AnchorPane> topLabel;
     private final MatchService matchSerivce;
     private Text inputValueText;
+    private UserService userService;
 
-    public SummaryPaneController(BetService betService, FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler, MatchService matchSerivce) {
+    public SummaryPaneController(BetService betService, FxControllerAndView<MainWindowController, AnchorPane> mainWindowControler, FxControllerAndView<TopLabel, AnchorPane> topLAbel, MatchService matchSerivce, UserService userService) {
         this.betService = betService;
         this.mainWindowControler = mainWindowControler;
+        this.topLabel = topLAbel;
         this.matchSerivce = matchSerivce;
+        this.userService = userService;
     }
 
 
@@ -59,7 +67,7 @@ public class SummaryPaneController {
 
                 if(oldValue.indexOf(".") == oldValue.length() - 3) bidTextField.setText(oldValue);
             }
-            if(oldValue.isEmpty()) return;
+            if(newValue.isEmpty()) return;
             inputValue = Double.parseDouble(bidTextField.getText());
             possibleWinValue = oddValue * inputValue;
             setTexts(possibleWinValue, oddValue, inputValue);
@@ -72,10 +80,12 @@ public class SummaryPaneController {
     }
 
     private void createBet(){
-        var prevBalance = Double.parseDouble(mainWindowControler.getController().accountBalanceLabel.getText());
-        if(prevBalance >= inputValue) return;
+        var prevBalance = userService.getAccountValue();
+        if(prevBalance < inputValue) return;
+        System.out.println(prevBalance + " " + inputValue + " " + matches.size());
         if(matches.size() > 0){
-            mainWindowControler.getController().accountBalanceLabel.setText(String.valueOf(prevBalance - inputValue));
+            userService.decreaseAccountBalance(inputValue);
+            topLabel.getController().refreshAccountBalanceText();
             var result = betService.createBet(inputValue, oddValue, matches.keySet().stream().toList());
             matchSerivce.saveAll(result);
         }
@@ -84,11 +94,13 @@ public class SummaryPaneController {
     public void addMatch(Match match, double value){
         matches.remove(match);
         matches.put(match, value);
+        System.out.println("dodano " + match.getHomeTeam());
         calculateOdd();
     }
 
     public void removeMatch(Match match){
         matches.remove(match);
+        System.out.println("usunieto " + match.getHomeTeam());
         calculateOdd();
     }
 

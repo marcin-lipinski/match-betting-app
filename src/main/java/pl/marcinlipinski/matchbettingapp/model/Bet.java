@@ -23,7 +23,6 @@ import java.util.Set;
 @Setter
 public class Bet implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private LocalDateTime endDate;
     private double betValue;

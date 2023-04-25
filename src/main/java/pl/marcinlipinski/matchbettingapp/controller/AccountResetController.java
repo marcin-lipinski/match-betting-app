@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
 import pl.marcinlipinski.matchbettingapp.service.MatchService;
+import pl.marcinlipinski.matchbettingapp.service.UserService;
 
 @Component
 @Controller
@@ -18,6 +19,9 @@ import pl.marcinlipinski.matchbettingapp.service.MatchService;
 public class AccountResetController {
     @FXML
     private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
+    @FXML
+    private final FxControllerAndView<TopLabel, AnchorPane> topLabel;
+    private final UserService userService;
     private final BetService betService;
 
     private final MatchService matchService;
@@ -28,8 +32,10 @@ public class AccountResetController {
     @FXML
     private AnchorPane dialog;
 
-    public AccountResetController(FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, BetService betService, MatchService matchService) {
+    public AccountResetController(FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, FxControllerAndView<TopLabel, AnchorPane> topLabel, UserService userService, BetService betService, MatchService matchService) {
         this.mainWindowController = mainWindowController;
+        this.topLabel = topLabel;
+        this.userService = userService;
         this.betService = betService;
         this.matchService = matchService;
     }
@@ -43,7 +49,8 @@ public class AccountResetController {
                 actionEvent -> {
                     betService.deleteAll();
                     matchService.deleteAll();
-                    mainWindowController.getController().accountBalanceLabel.setText("20.00");
+                    userService.newUser();
+                    topLabel.getController().refreshAccountBalanceText();
                     stage.close();
                 }
         );

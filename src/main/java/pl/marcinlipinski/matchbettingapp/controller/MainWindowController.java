@@ -1,39 +1,44 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import pl.marcinlipinski.matchbettingapp.service.UserService;
 
 @Component
 @FxmlView("MainWindow.fxml")
 public class MainWindowController {
     @FXML
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane;
+    @FXML
     private final FxControllerAndView<MatchListController, AnchorPane> matchRecordListController;
     @FXML
+    private final FxControllerAndView<TopLabel, AnchorPane> topLabel;
+    @FXML
+    private final UserService userService;
+    @FXML
     private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
-    @FXML
-    public Button openResetAccountDialogButton;
-    @FXML
-    public Text accountBalanceLabel;
+    private final FxControllerAndView<BetListController, AnchorPane> betListController;
 
 
-    public MainWindowController(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchListController, AnchorPane> matchRecordList, FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog) {
+    public MainWindowController(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPane, FxControllerAndView<MatchListController, AnchorPane> matchRecordList, FxControllerAndView<TopLabel, AnchorPane> topLabel, UserService userService, FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<BetListController, AnchorPane> betListController) {
         this.summaryPane = summaryPane;
         this.matchRecordListController = matchRecordList;
+        this.topLabel = topLabel;
+        this.userService = userService;
         this.accountResetDialog = accountResetDialog;
+        this.betListController = betListController;
     }
 
     @FXML
     public void initialize() {
-        this.openResetAccountDialogButton.setOnAction(actionEvent -> {
-            accountResetDialog.getController().show();
-        });
 
+    }
 
+    public void refresh(Event event) {
+        betListController.getController().searchForBets();
     }
 }

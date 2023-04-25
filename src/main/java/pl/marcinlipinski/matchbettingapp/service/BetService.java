@@ -18,21 +18,25 @@ public class BetService {
     private final BetRepository betRepository;
     private final MatchRepository matchRepository;
     private ObservableList<Bet> listOfBets;
+    private ObservableList<Match> listOfMatches;
 
     public BetService(BetRepository betRepository, MatchRepository matchRepository) {
         this.betRepository = betRepository;
         this.matchRepository = matchRepository;
         listOfBets = FXCollections.observableArrayList();
+        listOfMatches = FXCollections.observableArrayList();
     }
 
     public void deleteAll(){
         betRepository.deleteAll();
     }
     public List<Match> createBet(double betValue, double potentialWinValue, List<Match> matches){
-        var endDate = matches.stream().map(m -> m.getStartTime().plusMinutes(150)).max(LocalDateTime::compareTo).get();
-        long betId = betRepository.findAll().size() + 1;
+        var endDate = matches.stream().map(m -> m.getStartTime().plusMinutes(150)).max(LocalDateTime::compareTo).orElse(LocalDateTime.now());
+
+        long betId = betRepository.findAll().size() - 1;
 
         Bet bet = new Bet();
+        bet.setId(betId);
         bet.setBetValue(betValue);
         bet.setEndDate(endDate);
         bet.setPotentialWinValue(potentialWinValue);
@@ -49,7 +53,11 @@ public class BetService {
     }
 
     public ObservableList<Match> getMatchesByBetId(long betId) {
-        var result = matchRepository.findAll().stream().filter(m -> m.getBetId()==betId).toList();
-        return FXCollections.observableArrayList(result);
+        listOfMatches.clear();
+        listOfMatches.addAll(matchRepository.findAll().stream().filter(m -> m.getBetId() == betId).toList());
+        System.out.println(
+                listOfMatches.size()
+        );
+        return listOfMatches;
     }
 }

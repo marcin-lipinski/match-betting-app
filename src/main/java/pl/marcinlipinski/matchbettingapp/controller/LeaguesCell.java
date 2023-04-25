@@ -35,34 +35,9 @@ public class LeaguesCell extends ListCell<League> {
         super();
         this.matchRecordList = matchRecordList;
         loadFXML();
-
-        this.setOnMouseClicked(event -> {
-            System.out.println("dupa 1");
-            onActionProperty().get().handle(event);
-        });
-    }
-
-    // notice we use MouseEvent here only because you call from onMouseEvent, you can substitute any type you need
-    private final ObjectProperty<EventHandler<MouseEvent>> propertyOnAction = new SimpleObjectProperty<EventHandler<MouseEvent>>();
-
-    public final ObjectProperty<EventHandler<MouseEvent>> onActionProperty() {
-        System.out.println("dupa 2");
-        return propertyOnAction;
-    }
-
-    public final void setOnAction(EventHandler<MouseEvent> handler) {
-        System.out.println("dupa 3");
-        propertyOnAction.set(handler);
-    }
-
-    public final EventHandler<MouseEvent> getOnAction() {
-        System.out.println("dupa 4");
-        return propertyOnAction.get();
-
     }
 
     private void loadFXML() {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("LeagueCell.fxml"));
             loader.setController(this);
