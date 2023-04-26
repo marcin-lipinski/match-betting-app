@@ -49,8 +49,10 @@ public class MatchCell extends ListCell<Match> {
     @FXML
     private ImageView awayTeamLogo;
     private Button selected = null;
+    private String cellId;
     String cstyle = String.format("-fx-background-color: %s;", "#007acc");
     String ustyle = String.format("-fx-background-color: %s;", "#ffffff");
+    boolean did = false;
 
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
@@ -65,29 +67,14 @@ public class MatchCell extends ListCell<Match> {
     }
 
     private void initializeButtons(){
-        for(var button : buttons.keySet()){
-            button.setStyle(ustyle);
-            button.setOnMouseClicked(mouseEvent -> {
-                button.setStyle(ustyle);
-                if(summaryPaneController.getController().doContain(this.itemProperty().get())){
-                    if(selected == button){
-                        removeOdd();
-                        selected = null;
-                    }
-                }
-                else{
-                    selected = button;
-                    addOdd(button);
-                }
-            });
-        }
+
     }
 
     private void addOdd(Button button){
         selected.setStyle(cstyle);
         var matchId = this.itemProperty().get();
-        var odd = Double.parseDouble(buttons.get(selected).getText());
-        summaryPaneController.getController().addMatch(matchId, odd);
+        //var odd = Double.parseDouble(buttons.get(selected).getText());
+        //summaryPaneController.getController().addMatch(matchId, odd);
     }
 
     private void removeOdd(){
@@ -113,6 +100,8 @@ public class MatchCell extends ListCell<Match> {
         super.updateItem(item, empty);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+
+
         if(empty || item == null) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
@@ -128,6 +117,27 @@ public class MatchCell extends ListCell<Match> {
 
             homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
             awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));
+
+            for(var button : buttons.keySet()){
+                button.setStyle(ustyle);
+                button.setOnMouseClicked(mouseEvent -> {
+                    if(summaryPaneController.getController().doContain(getItem(), button.getText())){
+                        summaryPaneController.getController().removeMatch(getItem());
+                        button.setStyle(ustyle);
+                    }
+                    else {
+                        summaryPaneController.getController().addMatch(getItem(), button.getText());
+                        for(var b : buttons.keySet()) b.setStyle(ustyle);
+                        button.setStyle(cstyle);
+                    }
+                });
+            }
+
+            for(var button : buttons.keySet()){
+                if(summaryPaneController.getController().doContain(getItem(), button.getText())){
+                    button.setStyle(cstyle);
+                }
+            }
 
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }

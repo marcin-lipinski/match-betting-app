@@ -34,7 +34,7 @@ public class MatchService {
 
         String url = "https://sportscore1.p.rapidapi.com/events/search?sport_id=1&date_end=" + nextWeek + "&date_start=" + today + "&league_id=" + leagueId;
         var response = Unirest.post(url)
-                .header("X-RapidAPI-Key", "5f1ba88bacmsha7c19bc0fb48590p1da4aajsn85ad845d8314")
+                .header("X-RapidAPI-Key", "bef5e777cemsh913f1631d392ffcp18bd9ejsn8198ee1dbb09")
                 .header("X-RapidAPI-Host", "sportscore1.p.rapidapi.com").asJson().body();
 
         var jsonArray = responseToDataArray(response);
@@ -75,7 +75,7 @@ public class MatchService {
     public void getRefreshedMatchByBetId(Match match) {
         var response = Unirest.get("https://sportscore1.p.rapidapi.com/events/" + match.getId())
                 .header("content-type", "application/octet-stream")
-                .header("X-RapidAPI-Key", "5f1ba88bacmsha7c19bc0fb48590p1da4aajsn85ad845d8314")
+                .header("X-RapidAPI-Key", "bef5e777cemsh913f1631d392ffcp18bd9ejsn8198ee1dbb09")
                 .header("X-RapidAPI-Host", "sportscore1.p.rapidapi.com")
                 .asJson().body();
 

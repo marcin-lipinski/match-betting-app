@@ -3,6 +3,7 @@ package pl.marcinlipinski.matchbettingapp.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -22,34 +23,38 @@ import java.util.HashMap;
 @FxmlView
 public class SummaryPaneController {
     private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
+    private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
     @FXML
     public Text possibleWinValueText;
-
     @FXML
-    private TextField bidTextField;
+    public TextField bidTextField;
     @FXML
     private Text oddValueText;
     @FXML
-    private Button createBetButton;
+    public Button createBetButton;
     private double oddValue;
     private double inputValue;
     private double possibleWinValue;
-    private HashMap<Match, Double> matches;
+    private HashMap<Match, String> matches;
     private final BetService betService;
     private final UserService userService;
     @FXML
-    private Button openResetAccountDialogButton;
+    public Button openResetAccountDialogButton;
     @FXML
     private Text accountBalanceText;
+    private FxControllerAndView<MatchListController, Node> matchListController;
 
-    public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, BetService betService, UserService userService) {
+    public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<MatchListController, AnchorPane> matchListController, FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, BetService betService, UserService userService, FxControllerAndView<MatchListController, Node> matchListController1) {
+        this.mainWindowController = mainWindowController;
         this.betService = betService;
         this.userService = userService;
         this.accountResetDialog = accountResetDialog;
+        this.matchListController = matchListController1;
     }
 
     @FXML
     public void initialize() {
+        createBetButton.setDisable(true);
         openResetAccountDialogButton.setOnAction(this::handle);
         matches = new HashMap<>();
         oddValue = 0.00;
@@ -62,25 +67,27 @@ public class SummaryPaneController {
                 bidTextField.setText(oldValue);
             }
             if(oldValue.contains(".") && newValue.length() >= oldValue.length()){
-
                 if(oldValue.indexOf(".") == oldValue.length() - 3) bidTextField.setText(oldValue);
             }
-            if(newValue.isEmpty()) return;
-            inputValue = Double.parseDouble(bidTextField.getText());
-            possibleWinValue = oddValue * inputValue;
-            setTexts(possibleWinValue, oddValue);
+            setTexts();
         });
     }
     
-    private void setTexts(double pW, double oV){
-        possibleWinValueText.setText(String.valueOf(pW));
-        oddValueText.setText(String.valueOf(oV));
+    private void setTexts(){
+        var inp = bidTextField.getText();
+        inputValue = Double.parseDouble(inp.isEmpty() ? "0.0" : inp);
+        possibleWinValue = oddValue * inputValue;
+
+        if(inputValue > 0) createBetButton.setDisable(false);
+        possibleWinValueText.setText(format(possibleWinValue));
+        oddValueText.setText(format(oddValue));
+
+        System.out.println(oddValue + " " + possibleWinValue + " " + inputValue + " " + matches.size());
     }
 
     private void createBet(){
         var prevBalance = userService.getAccountValue();
         if(prevBalance < inputValue) return;
-        System.out.println(prevBalance + " " + inputValue + " " + matches.size());
         if(matches.size() > 0){
             userService.decreaseAccountBalance(inputValue);
             refreshAccountBalanceText();
@@ -88,30 +95,39 @@ public class SummaryPaneController {
         }
     }
 
-    public void addMatch(Match match, double value){
+    public void addMatch(Match match, String type){
         matches.remove(match);
-        matches.put(match, value);
-        System.out.println("dodano " + match.getHomeTeam());
+        matches.put(match, type);
         calculateOdd();
+        setTexts();
     }
 
-    public boolean doContain(Match match){
-        return matches.containsKey(match);
+    public boolean doContain(Match match, String c){
+        return matches.containsKey(match) && matches.get(match).equals(c);
     }
 
     public void removeMatch(Match match){
         matches.remove(match);
-        System.out.println("usunieto " + match.getHomeTeam());
         calculateOdd();
+        setTexts();
     }
 
     private void calculateOdd(){
         oddValue = 0.00;
-        for(var matchId : matches.keySet()){
-            if(oddValue == 0.00) oddValue += 0.9 * matches.get(matchId);
-            else oddValue *= 0.9 * matches.get(matchId);
+        for(var match : matches.keySet()){
+            if(oddValue == 0.00) oddValue += 0.9 * getOddByType(match, matches.get(match));
+            else oddValue *= 0.9 * getOddByType(match, matches.get(match));
         }
-        oddValueText.setText(String.valueOf(oddValue));
+        setTexts();
+    }
+
+    private double getOddByType(Match match, String type){
+        return switch (type) {
+            case "1" -> match.getHomeTeamOdd();
+            case "2" -> match.getAwayTeamOdd();
+            case "X" -> match.getDrawTeamOdd();
+            default -> 1.0;
+        };
     }
 
     @FXML
@@ -125,5 +141,12 @@ public class SummaryPaneController {
 
     private void handle(ActionEvent actionEvent) {
         accountResetDialog.getController().show();
+    }
+
+    private String format(double v){
+        int fv = (int) (v * 100);
+        if(fv <= 0) return "0.0";
+        double fd = (double)fv/100;
+        return String.valueOf(fd);
     }
 }

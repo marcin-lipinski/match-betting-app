@@ -5,9 +5,10 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="100.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane stylesheets="@styles.css" id="accountResetPane" prefHeight="60.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pl.marcinlipinski.matchbettingapp.controller.AccountResetController" fx:id="dialog">
-   <Button fx:id="resetAccountButton" layoutX="147.0" layoutY="63.0" mnemonicParsing="false" text="Reset"/>
-   <Text layoutX="15.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0"
+   <Button fx:id="resetAccountButton" layoutX="110.0" layoutY="30.0" mnemonicParsing="false" text="Reset" prefWidth="50"/>
+   <Button fx:id="exitButton" layoutX="180.0" layoutY="30.0" mnemonicParsing="false" text="Exit" prefWidth="50"/>
+   <Text layoutX="15.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
          text="Do you want reset all your bets and your account balance?" textAlignment="CENTER"/>
 </AnchorPane>

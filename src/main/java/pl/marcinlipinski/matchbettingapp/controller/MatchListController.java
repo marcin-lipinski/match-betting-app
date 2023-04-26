@@ -35,6 +35,7 @@ public class MatchListController {
     public void initialize() {
         lista.setCellFactory(listView -> new MatchCell(summaryPaneController));
 
+
         leaguesComboBox.setItems(leagueService.getAllLeagues());
         leaguesComboBox.setCellFactory(comboBox -> new LeaguesCell(this));
         leaguesComboBox.setButtonCell(new LeaguesCell(this));
@@ -45,7 +46,7 @@ public class MatchListController {
         });
 
         leaguesComboBox.getSelectionModel().selectFirst();
-        //searchForMatches(((League)leaguesComboBox.getValue()).getId());
+        searchForMatches(((League)leaguesComboBox.getValue()).getId());
     }
 
     public void searchForMatches(int leagueId){

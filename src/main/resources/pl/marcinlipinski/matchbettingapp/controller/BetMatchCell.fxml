@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<fx:root prefHeight="200.0" prefWidth="400.0" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="cell" prefHeight="200.0" prefWidth="400.0" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
-        <AnchorPane>
+        <AnchorPane fx:id="cellAnchorPane">
             <Text fx:id="homeTeamName" layoutX="40.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
             <Text fx:id="awayTeamName" layoutX="280.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
             <Text fx:id="matchTimeText" layoutX="130.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyy-mm-dd hh:mm:ss" />

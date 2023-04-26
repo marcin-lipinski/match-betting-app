@@ -28,13 +28,13 @@ public class BetCell extends ListCell<Bet> {
             {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     if(mouseEvent.getClickCount() == 2){
-                        betListController.betMatchList.getController().show();
-                        betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
+                        if(this.getStyleClass().contains("content")){
+                            betListController.betMatchList.getController().show();
+                            betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
+                        }
                     }
             }
         });
-        this.setOnMouseExited(mouseEvent -> System.out.println("mouse off 1"));
-        this.setOnMouseEntered(mouseEvent -> System.out.println("mouse on 1"));
     }
 
 
@@ -60,15 +60,22 @@ public class BetCell extends ListCell<Bet> {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
-            idValueText.setText(String.valueOf(item.getId()));
+            this.getStyleClass().add("content");
+            idValueText.setText(format(item.getId()));
             betDateText.setText(item.getEndDate().format(formatter));
-            oddValueText.setText(String.valueOf(item.getOddValue()));
-            potentialWinValueText.setText(String.valueOf(item.getPossibleWinValue()));
-            insetValueText.setText(String.valueOf(item.getInputValue()));
-
-
+            oddValueText.setText(format(item.getOddValue()));
+            potentialWinValueText.setText(format(item.getPossibleWinValue()));
+            insetValueText.setText(format(item.getInputValue()));
 
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
+    }
+
+    private String format(double v){
+        int fv = (int) (v * 100);
+        if(fv <= 0) return "0.0";
+        String temp = String.valueOf(fv);
+        temp = temp.charAt(0) + "." + temp.charAt(1) + temp.charAt(2);
+        return temp;
     }
 }

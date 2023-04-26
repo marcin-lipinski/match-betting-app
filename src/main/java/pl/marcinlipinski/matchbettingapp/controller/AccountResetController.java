@@ -1,10 +1,12 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class AccountResetController {
     private final BetService betService;
 
     private final MatchService matchService;
+    @FXML
+    public Button exitButton;
     private Stage stage;
 
     @FXML
@@ -38,17 +42,23 @@ public class AccountResetController {
 
     @FXML
     public void initialize() {
-        this.stage = new Stage();
+        stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(new Scene(dialog));
         resetAccountButton.setOnAction(
-                actionEvent -> {
-                    betService.deleteAll();
-                    matchService.deleteAll();
-                    userService.newUser();
-                    summaryPaneController.getController().refreshAccountBalanceText();
-                    stage.close();
-                }
+            actionEvent -> {
+                betService.deleteAll();
+                matchService.deleteAll();
+                userService.newUser();
+                summaryPaneController.getController().refreshAccountBalanceText();
+                stage.close();
+            }
         );
+        exitButton.setOnAction(actionEvent -> stage.close());
+        stage.focusedProperty().addListener((ov, onHidden, onShown) -> {
+            if(!stage.isFocused())
+                Platform.runLater(() -> stage.requestFocus());
+        });
     }
 
     public void show() {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
+import pl.marcinlipinski.matchbettingapp.service.MatchService;
 
 @Component
 @Controller
@@ -27,21 +28,22 @@ public class BetMatchListController {
     @FXML
     private ProgressBar progressBar;
     private final BetService betService;
+    private MatchService matchService;
 
-    public BetMatchListController(BetService betService) {
+    public BetMatchListController(BetService betService, MatchService matchService) {
         this.betService = betService;
+        this.matchService = matchService;
     }
 
     @SneakyThrows
     public void loadData(long betId){
-
         var matches = betService.getMatchesByBetId(betId).stream().toList();
         var size = matches.size();
         Thread thread = new Thread(() -> {
             int counter = 0;
             progressBar.setVisible(true);
             for(var match : matches){
-                //matchService.getRefreshedMatchByBetId(match);
+                matchService.getRefreshedMatchByBetId(match);
                 counter++;
                 System.out.println(match.getHomeTeam());
                 try {
@@ -53,9 +55,6 @@ public class BetMatchListController {
                 Platform.runLater(() -> progressBar.setProgress((double) finalCounter /size));
             }
             progressBar.setVisible(false);
-            betMatchListView.getItems().clear();
-            betMatchListView.setItems(betService.getMatchesByBetId(betId));
-            betMatchListView.refresh();
         });
         thread.setDaemon(true);
 
@@ -65,6 +64,9 @@ public class BetMatchListController {
         }catch(Exception exception){
             System.out.println(exception.getMessage());
         }
+        betMatchListView.getItems().clear();
+        betMatchListView.setItems(betService.getMatchesByBetId(betId));
+        betMatchListView.refresh();
     }
 
     @FXML
