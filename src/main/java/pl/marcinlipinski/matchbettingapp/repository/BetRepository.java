@@ -1,4 +1,4 @@
-package pl.marcinlipinski.matchbettingapp.repositor;
+package pl.marcinlipinski.matchbettingapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.marcinlipinski.matchbettingapp.model.Bet;

@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.League;
-import pl.marcinlipinski.matchbettingapp.repositor.LeagueRepository;
+import pl.marcinlipinski.matchbettingapp.repository.LeagueRepository;
 
 @Service
 public class LeagueService {

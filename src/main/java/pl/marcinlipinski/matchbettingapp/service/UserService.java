@@ -2,7 +2,7 @@ package pl.marcinlipinski.matchbettingapp.service;
 
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.User;
-import pl.marcinlipinski.matchbettingapp.repositor.UserRepository;
+import pl.marcinlipinski.matchbettingapp.repository.UserRepository;
 
 @Service
 public class UserService {

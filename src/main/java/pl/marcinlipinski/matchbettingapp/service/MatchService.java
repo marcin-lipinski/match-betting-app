@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
-import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
+import pl.marcinlipinski.matchbettingapp.repository.MatchRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
-import pl.marcinlipinski.matchbettingapp.repositor.BetRepository;
+import pl.marcinlipinski.matchbettingapp.repository.BetRepository;
 import pl.marcinlipinski.matchbettingapp.model.Bet;
 import java.time.LocalDateTime;
 import java.util.HashSet;
