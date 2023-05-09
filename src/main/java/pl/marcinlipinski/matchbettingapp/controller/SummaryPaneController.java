@@ -24,25 +24,17 @@ import java.util.HashMap;
 public class SummaryPaneController {
     private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
     private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
-    @FXML
-    public Text possibleWinValueText;
-    @FXML
-    public TextField bidTextField;
-    @FXML
-    private Text oddValueText;
-    @FXML
-    public Button createBetButton;
-    private double oddValue;
-    private double inputValue;
-    private double possibleWinValue;
-    private HashMap<Match, String> matches;
+    private final FxControllerAndView<MatchListController, Node> matchListController;
     private final BetService betService;
     private final UserService userService;
     @FXML
-    public Button openResetAccountDialogButton;
+    public Text possibleWinValueText, oddValueText, accountBalanceText;
     @FXML
-    private Text accountBalanceText;
-    private FxControllerAndView<MatchListController, Node> matchListController;
+    public TextField bidTextField;
+    @FXML
+    public Button createBetButton, openResetAccountDialogButton;
+    private double oddValue, inputValue, possibleWinValue;
+    private HashMap<Match, String> matches;
 
     public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<MatchListController, AnchorPane> matchListController, FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, BetService betService, UserService userService, FxControllerAndView<MatchListController, Node> matchListController1) {
         this.mainWindowController = mainWindowController;
@@ -55,7 +47,8 @@ public class SummaryPaneController {
     @FXML
     public void initialize() {
         createBetButton.setDisable(true);
-        openResetAccountDialogButton.setOnAction(this::handle);
+        openResetAccountDialogButton.setDisable(true);
+        //openResetAccountDialogButton.setOnAction(this::handle);
         matches = new HashMap<>();
         oddValue = 0.00;
         createBetButton.setOnMouseClicked(mouseEvent -> createBet());
@@ -82,17 +75,17 @@ public class SummaryPaneController {
         if(inputValue > 0) createBetButton.setDisable(false);
         possibleWinValueText.setText(format(possibleWinValue));
         oddValueText.setText(format(oddValue));
-
-        System.out.println(oddValue + " " + possibleWinValue + " " + inputValue + " " + matches.size());
     }
 
     private void createBet(){
-        var prevBalance = userService.getAccountValue();
-        if(prevBalance < inputValue) return;
+        //var prevBalance = userService.getAccountValue();
+        //if(prevBalance < inputValue) return;
         if(matches.size() > 0){
-            userService.decreaseAccountBalance(inputValue);
-            refreshAccountBalanceText();
+            //userService.decreaseAccountBalance(inputValue);
+            //refreshAccountBalanceText();
             betService.createBet(inputValue, oddValue, possibleWinValue, matches.keySet().stream().toList());
+            createBetButton.setDisable(true);
+            bidTextField.setText("Your input");
         }
     }
 

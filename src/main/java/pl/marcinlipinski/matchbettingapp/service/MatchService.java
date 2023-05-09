@@ -1,6 +1,5 @@
 package pl.marcinlipinski.matchbettingapp.service;
 
-
 import io.joshworks.restclient.http.Json;
 import io.joshworks.restclient.http.Unirest;
 import javafx.collections.FXCollections;

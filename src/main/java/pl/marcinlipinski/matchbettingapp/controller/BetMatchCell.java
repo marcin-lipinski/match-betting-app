@@ -3,10 +3,12 @@ package pl.marcinlipinski.matchbettingapp.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Controller;
@@ -17,27 +19,15 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @FxmlView
-public class MatchInBetList extends ListCell<Match> {
+public class BetMatchCell extends ListCell<Match> {
     @FXML
-    private Text homeTeamName;
+    private Label homeTeamName, awayTeamName, matchResultText, matchTimeText;
     @FXML
-    private Text awayTeamName;
+    private Text awayTeamOddText, drawOddText, homeTeamOddText;
     @FXML
-    private Text matchResultText;
-    @FXML
-    private Text homeTeamOddText;
-    @FXML
-    private Text awayTeamOddText;
-    @FXML
-    private Text drawOddText;
-    @FXML
-    private Text matchTimeText;
-    @FXML
-    private ImageView homeTeamLogo;
-    @FXML
-    private ImageView awayTeamLogo;
+    private ImageView homeTeamLogo, awayTeamLogo;
 
-    public MatchInBetList() {
+    public BetMatchCell() {
         loadFXML();
     }
 
@@ -71,6 +61,10 @@ public class MatchInBetList extends ListCell<Match> {
             homeTeamOddText.setText(String.valueOf(item.getHomeTeamOdd()));
             awayTeamOddText.setText(item.getAwayTeamOdd().toString());
             drawOddText.setText(String.valueOf(item.getDrawTeamOdd()));
+            homeTeamName.setTextAlignment(TextAlignment.CENTER);
+            awayTeamName.setTextAlignment(TextAlignment.CENTER);
+            matchResultText.setTextAlignment(TextAlignment.CENTER);
+            matchTimeText.setTextAlignment(TextAlignment.CENTER);
 
             homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
             awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));

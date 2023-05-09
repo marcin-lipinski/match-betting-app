@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 public class BetCell extends ListCell<Bet> {
     @FXML
     private Text betDateText, insetValueText, potentialWinValueText, oddValueText, idValueText;
-
     BetListController betListController;
 
     public BetCell(BetListController betListController) {
@@ -37,7 +36,6 @@ public class BetCell extends ListCell<Bet> {
         });
     }
 
-
     private void loadFXML() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("BetCell.fxml"));
@@ -48,7 +46,6 @@ public class BetCell extends ListCell<Bet> {
             throw new RuntimeException(e);
         }
     }
-
 
     @SneakyThrows
     @Override
@@ -61,7 +58,7 @@ public class BetCell extends ListCell<Bet> {
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
             this.getStyleClass().add("content");
-            idValueText.setText(format(item.getId()));
+            idValueText.setText("#" + format(item.getId()));
             betDateText.setText(item.getEndDate().format(formatter));
             oddValueText.setText(format(item.getOddValue()));
             potentialWinValueText.setText(format(item.getPossibleWinValue()));
@@ -74,8 +71,7 @@ public class BetCell extends ListCell<Bet> {
     private String format(double v){
         int fv = (int) (v * 100);
         if(fv <= 0) return "0.0";
-        String temp = String.valueOf(fv);
-        temp = temp.charAt(0) + "." + temp.charAt(1) + temp.charAt(2);
-        return temp;
+        Double dv = ((double) fv) / 100;
+        return String.valueOf(dv);
     }
 }

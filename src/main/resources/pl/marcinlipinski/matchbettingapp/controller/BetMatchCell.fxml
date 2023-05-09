@@ -5,18 +5,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <fx:root fx:id="cell" prefHeight="200.0" prefWidth="400.0" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <AnchorPane fx:id="cellAnchorPane">
-            <Text fx:id="homeTeamName" layoutX="40.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
-            <Text fx:id="awayTeamName" layoutX="280.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Team" textAlignment="CENTER" />
-            <Text fx:id="matchTimeText" layoutX="130.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyy-mm-dd hh:mm:ss" />
-            <ImageView fx:id="homeTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="32.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="awayTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="272.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="matchResultText" layoutX="179.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" />
+            <Label fx:id="homeTeamName" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="30.0" prefWidth="100.0" text="Home Team Label" textAlignment="CENTER" />
+            <Label fx:id="awayTeamName" alignment="CENTER" contentDisplay="CENTER" layoutX="270.0" layoutY="30.0" prefWidth="100.0" text="Away Team Label" textAlignment="CENTER" />
+            <Label fx:id="matchTimeText" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="80.0" prefWidth="122.0" text="yyyy-mm-dd hh:mm:ss" textAlignment="CENTER" />
+            <ImageView fx:id="homeTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="30.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="awayTeamLogo" fitHeight="80.0" fitWidth="80.0" layoutX="280.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="matchResultText" alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="101.0" prefWidth="30.0" text="00:00" textAlignment="CENTER" />
             <Text fx:id="homeTeamOddText" layoutX="138.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
-            <Text fx:id="drawOddText" layoutX="178.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
-            <Text fx:id="awayTeamOddText" layoutX="218.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
+            <Text fx:id="drawOddText" layoutX="178.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
+            <Text fx:id="awayTeamOddText" layoutX="218.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" textAlignment="CENTER" wrappingWidth="30.13671875" />
         </AnchorPane>
     </graphic>
 </fx:root>

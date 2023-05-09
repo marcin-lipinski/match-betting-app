@@ -21,17 +21,13 @@ import pl.marcinlipinski.matchbettingapp.service.UserService;
 public class AccountResetController {
     private final UserService userService;
     private final BetService betService;
-
     private final MatchService matchService;
+    private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
     @FXML
-    public Button exitButton;
+    public Button exitButton, resetAccountButton;
     private Stage stage;
-
-    @FXML
-    private Button resetAccountButton;
     @FXML
     private AnchorPane dialog;
-    private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
     public AccountResetController(UserService userService, BetService betService, MatchService matchService, FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
         this.userService = userService;

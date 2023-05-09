@@ -15,7 +15,6 @@ public class MainWindowController {
     @FXML
     public TabPane tabPane;
 
-
     public MainWindowController(FxControllerAndView<BetListController, AnchorPane> betListController) {
         this.betListController = betListController;
     }

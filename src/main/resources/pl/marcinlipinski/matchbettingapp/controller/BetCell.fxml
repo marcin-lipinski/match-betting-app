@@ -7,15 +7,15 @@
 <fx:root fx:id="cell" maxWidth="380.0" prefWidth="380.0" type="javafx.scene.control.ListCell" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <AnchorPane fx:id="cellAnchorPane" maxWidth="380.0" prefHeight="120.0" prefWidth="380.0">
-            <Text fx:id="betDateText" layoutX="50.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyy-mm-dd hh:mm:ss" wrappingWidth="121.13671875" />
-            <Text fx:id="insetText" layoutX="200.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inset" />
-            <Text fx:id="insetValueText" layoutX="279.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
+            <Text fx:id="betDateText" layoutX="60.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="yyyy-mm-dd hh:mm:ss" wrappingWidth="121.13671875" />
+            <Text fx:id="insetText" layoutX="200.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inset" />
+            <Text fx:id="insetValueText" layoutX="290.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
             <Text fx:id="potentialWinText" layoutX="200.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Potentail Win" />
-            <Text fx:id="potentialWinValueText" layoutX="279.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
-            <Text fx:id="oddText" layoutX="201.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Odd" />
-            <Text fx:id="oddValueText" layoutX="279.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-            <Text fx:id="idValueText" layoutX="129.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#000000" />
-            <Text layoutX="15.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
+            <Text fx:id="potentialWinValueText" layoutX="290.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
+            <Text fx:id="oddText" layoutX="200.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Odd" />
+            <Text fx:id="oddValueText" layoutX="290.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.00" />
+            <Text fx:id="idValueText" layoutX="60.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#000000" />
+            <Text layoutX="15.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
             <Text layoutX="15.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
          </AnchorPane>
     </graphic>

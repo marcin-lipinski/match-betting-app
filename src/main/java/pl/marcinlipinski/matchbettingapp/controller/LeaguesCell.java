@@ -21,6 +21,7 @@ public class LeaguesCell extends ListCell<League> {
     private ImageView leagueLogo;
     @FXML
     private Text leagueName;
+
     public LeaguesCell(MatchListController matchRecordList) {
         super();
         this.matchRecordList = matchRecordList;

@@ -2,13 +2,16 @@ package pl.marcinlipinski.matchbettingapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -23,37 +26,19 @@ import java.util.HashMap;
 @FxmlView("MatchCell.fxml")
 public class MatchCell extends ListCell<Match> {
     @FXML
-    private Text homeTeamName;
+    private Label homeTeamName, awayTeamName, matchResultText, matchTimeText;
     @FXML
-    private Text awayTeamName;
+    private Text awayTeamOddText, drawOddText, homeTeamOddText;
     @FXML
-    private Text matchResultText;
+    private Button drawOddButton, awayTeamOddButton, homeTeamOddButton;
     @FXML
-    private Text homeTeamOddText;
-    @FXML
-    private Text awayTeamOddText;
-    @FXML
-    private Text drawOddText;
-    @FXML
-    private Text matchTimeText;
-    @FXML
-    private Button drawOddButton;
-    @FXML
-    private Button awayTeamOddButton;
-    @FXML
-    private Button homeTeamOddButton;
+    private ImageView homeTeamLogo, awayTeamLogo;
     @FXML
     HashMap<Button, Text> buttons;
-    @FXML
-    private ImageView homeTeamLogo;
-    @FXML
-    private ImageView awayTeamLogo;
-    private Button selected = null;
-    private String cellId;
+
+    private final Button selected = null;
     String cstyle = String.format("-fx-background-color: %s;", "#007acc");
     String ustyle = String.format("-fx-background-color: %s;", "#ffffff");
-    boolean did = false;
-
     private final FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController;
 
     public MatchCell(FxControllerAndView<SummaryPaneController, AnchorPane> summaryPaneController) {
@@ -63,11 +48,6 @@ public class MatchCell extends ListCell<Match> {
         buttons.put(homeTeamOddButton, homeTeamOddText);
         buttons.put(awayTeamOddButton, awayTeamOddText);
         buttons.put(drawOddButton, drawOddText);
-        initializeButtons();
-    }
-
-    private void initializeButtons(){
-
     }
 
     private void addOdd(Button button){
@@ -93,7 +73,6 @@ public class MatchCell extends ListCell<Match> {
         }
     }
 
-
     @SneakyThrows
     @Override
     protected void updateItem(Match item, boolean empty) {
@@ -112,6 +91,10 @@ public class MatchCell extends ListCell<Match> {
             homeTeamOddText.setText(String.valueOf(item.getHomeTeamOdd()));
             awayTeamOddText.setText(item.getAwayTeamOdd().toString());
             drawOddText.setText(String.valueOf(item.getDrawTeamOdd()));
+            homeTeamName.setTextAlignment(TextAlignment.CENTER);
+            awayTeamName.setTextAlignment(TextAlignment.CENTER);
+            matchResultText.setTextAlignment(TextAlignment.CENTER);
+            matchTimeText.setTextAlignment(TextAlignment.CENTER);
 
             homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
             awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));

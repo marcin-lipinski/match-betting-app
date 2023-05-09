@@ -3,17 +3,13 @@ package pl.marcinlipinski.matchbettingapp.service;
 import jakarta.transaction.Transactional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.repositor.BetRepository;
 import pl.marcinlipinski.matchbettingapp.model.Bet;
-import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 //@RequiredArgsConstructor
@@ -51,8 +47,6 @@ public class BetService {
             match.addBet(bet);
             matchService.matchRepository.save(match);
         }
-
-
     }
 
     public ObservableList<Bet> getAll(){
@@ -63,7 +57,6 @@ public class BetService {
 
     public ObservableList<Match> getMatchesByBetId(Long betId) {
         listOfMatches.clear();
-        betRepository.findById(betId).get().getMatches().forEach(m -> System.out.println(m.getHomeTeam()));
         listOfMatches.addAll(betRepository.findById(betId).get().getMatches());
         return listOfMatches;
     }

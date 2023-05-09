@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.MatchListController">
+<AnchorPane id="matchList" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.MatchListController">
     <ComboBox fx:id="leaguesComboBox" prefHeight="40.0" prefWidth="400.0" stylesheets="@styles.css" />
     <ListView id="lista" fx:id="lista" layoutY="40.0" minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="400.0" />
 </AnchorPane>

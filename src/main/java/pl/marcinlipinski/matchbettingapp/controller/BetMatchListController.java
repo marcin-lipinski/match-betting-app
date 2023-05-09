@@ -20,16 +20,16 @@ import pl.marcinlipinski.matchbettingapp.service.MatchService;
 @Controller
 @FxmlView("BetMatchList.fxml")
 public class BetMatchListController {
+    private final BetService betService;
+    private final MatchService matchService;
     @FXML
     public ListView<Match> betMatchListView;
+    @FXML
     private Stage stage;
-
     @FXML
     private AnchorPane dialog;
     @FXML
     private ProgressBar progressBar;
-    private final BetService betService;
-    private MatchService matchService;
 
     public BetMatchListController(BetService betService, MatchService matchService) {
         this.betService = betService;
@@ -38,7 +38,7 @@ public class BetMatchListController {
 
     @SneakyThrows
     public void loadData(long betId){
-        stage.setTitle("Losing money - bet " + betId);
+        stage.setTitle("Losing money - bet #" + betId);
         var matches = betService.getMatchesByBetId(betId).stream().toList();
         var size = matches.size();
         Thread thread = new Thread(() ->
@@ -64,7 +64,6 @@ public class BetMatchListController {
         try{
             thread.wait();
         }catch(Exception exception){
-            System.out.println(exception.getMessage());
             betMatchListView.getItems().clear();
             betMatchListView.setItems(betService.getMatchesByBetId(betId));
             betMatchListView.refresh();
@@ -77,7 +76,7 @@ public class BetMatchListController {
         stage.setScene(new Scene(dialog));
         stage.setResizable(false);
         stage.getIcons().add(new Image("file:src/main/resources/icon.png"));
-        betMatchListView.setCellFactory(listView -> new MatchInBetList());
+        betMatchListView.setCellFactory(listView -> new BetMatchCell());
     }
 
     public void show() {

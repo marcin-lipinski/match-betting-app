@@ -3,42 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="SummaryPane" prefHeight="650.0" prefWidth="400.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.SummaryPaneController">
-    <Button fx:id="openResetAccountDialogButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" text="Account reset" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Button>
-    <Text layoutX="199.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account balance:" wrappingWidth="134.0">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Text>
-    <Text fx:id="accountBalanceText" layoutX="347.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Text>
-
-    <TextField fx:id="bidTextField" layoutX="163.0" layoutY="583.0" prefHeight="25.0" prefWidth="72.0" promptText="Your input" />
-    <Text layoutX="38.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current odd:" textAlignment="CENTER">
-      <font>
-         <Font name="Yu Gothic Regular" size="14.0" />
-      </font></Text>
-    <Text fx:id="oddValueText" layoutX="59.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" textAlignment="CENTER">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Text>
-    <Text layoutX="266.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Possible win">
-      <font>
-         <Font name="Yu Gothic Bold" size="14.0" />
-      </font></Text>
-    <Text fx:id="possibleWinValueText" layoutX="289.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" wrappingWidth="40.0078125">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Text>
-    <Button fx:id="createBetButton" layoutX="172.0" layoutY="613.0" prefHeight="23.0" prefWidth="54.0" text="Bet" textAlignment="CENTER">
-      <font>
-         <Font name="Yu Gothic Bold" size="15.0" />
-      </font></Button>
+    <Button fx:id="openResetAccountDialogButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" text="Account reset" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"/>
+    <Text layoutX="199.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account balance:" wrappingWidth="134.0"/>
+    <Text fx:id="accountBalanceText" layoutX="347.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00"/>
+    <TextField fx:id="bidTextField" layoutX="153.0" layoutY="573.0" prefHeight="25.0" prefWidth="92.0" promptText="Your input" />
+    <Text layoutX="38.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current odd:" textAlignment="CENTER"/>
+    <Text fx:id="oddValueText" layoutX="59.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" textAlignment="CENTER"/>
+    <Text layoutX="266.0" layoutY="609.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Possible win"/>
+    <Text fx:id="possibleWinValueText" layoutX="289.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" wrappingWidth="40"/>
+    <Button fx:id="createBetButton" layoutX="172.0" layoutY="613.0" prefHeight="23.0" prefWidth="54.0" text="Bet" textAlignment="CENTER"/>
 </AnchorPane>

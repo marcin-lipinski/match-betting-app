@@ -14,18 +14,15 @@ import pl.marcinlipinski.matchbettingapp.service.BetService;
 @Controller
 @FxmlView("BetList.fxml")
 public class BetListController {
+    protected final BetService betSerivce;
+    FxControllerAndView<BetMatchListController, AnchorPane> betMatchList;
     @FXML
     private ListView<Bet> betListView;
-    protected final BetService betSerivce;
-
-    FxControllerAndView<BetMatchListController, AnchorPane> betMatchList;
-
 
     public BetListController(BetService betService, FxControllerAndView<BetMatchListController, AnchorPane> betMatchList) {
         this.betMatchList = betMatchList;
         this.betSerivce = betService;
     }
-
 
     @FXML
     public void initialize() {

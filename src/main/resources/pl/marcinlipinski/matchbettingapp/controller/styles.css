@@ -1,7 +1,15 @@
-/*.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {*/
-/*    -fx-alignment: CENTER;*/
-/*    -fx-text-fill: -fx-text-base-color;*/
-/*}*/
+#matchList > .list-view {
+    -fx-pref-width: 400;
+}
+#matchList .list-view .scroll-bar:vertical{
+    -fx-pref-width: 1;
+    -fx-opacity: 0;
+}
+#matchList .list-view .scroll-bar:horizontal{
+    -fx-pref-height: 1;
+    -fx-opacity: 0;
+}
+
 #accountResetPane{
     -fx-border-width: 2;
     -fx-border-color: black;
@@ -15,6 +23,8 @@
 
 #SummaryPane, #accountResetPane{
     -fx-background-color: #69A297;
+    -fx-font-family: "Yu Gothic Bold";
+    -fx-font-size: 15;
 }
 #lista, #betListView, #betMatchListView, #cell{
     -fx-background-color: #DDD8C4;
