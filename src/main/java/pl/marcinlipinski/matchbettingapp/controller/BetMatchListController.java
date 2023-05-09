@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
@@ -37,15 +38,16 @@ public class BetMatchListController {
 
     @SneakyThrows
     public void loadData(long betId){
+        stage.setTitle("Losing money - bet " + betId);
         var matches = betService.getMatchesByBetId(betId).stream().toList();
         var size = matches.size();
-        Thread thread = new Thread(() -> {
+        Thread thread = new Thread(() ->
+        {
             int counter = 0;
             progressBar.setVisible(true);
             for(var match : matches){
-                matchService.getRefreshedMatchByBetId(match);
+                //matchService.getRefreshedMatchByBetId(match);
                 counter++;
-                System.out.println(match.getHomeTeam());
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
@@ -63,16 +65,18 @@ public class BetMatchListController {
             thread.wait();
         }catch(Exception exception){
             System.out.println(exception.getMessage());
+            betMatchListView.getItems().clear();
+            betMatchListView.setItems(betService.getMatchesByBetId(betId));
+            betMatchListView.refresh();
         }
-        betMatchListView.getItems().clear();
-        betMatchListView.setItems(betService.getMatchesByBetId(betId));
-        betMatchListView.refresh();
     }
 
     @FXML
     public void initialize() {
         this.stage = new Stage();
         stage.setScene(new Scene(dialog));
+        stage.setResizable(false);
+        stage.getIcons().add(new Image("file:src/main/resources/icon.png"));
         betMatchListView.setCellFactory(listView -> new MatchInBetList());
     }
 

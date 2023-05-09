@@ -10,17 +10,19 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name="Event")
+@Entity(name="event")
 @Table(name="event")
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
 @Getter
 @Setter
-public class Match implements Serializable {
+public class Match {
     @Id
-    private long id;
+    private Long id;
     private String status;
     private String homeTeam;
     private String homeTeamLogo;
@@ -35,5 +37,17 @@ public class Match implements Serializable {
     private Double awayTeamOdd;
     private String leagueName;
     private String leagueLogo;
-    private long betId;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "bet_event",
+            joinColumns = { @JoinColumn(name = "bet_id") },
+            inverseJoinColumns = { @JoinColumn(name = "event_id") }
+    )
+    private Set<Bet> bets = new HashSet<>();
+
+    public void addBet(Bet bet) {
+        this.bets.add(bet);
+        bet.getMatches().add(this);
+    }
 }

@@ -100,8 +100,6 @@ public class MatchCell extends ListCell<Match> {
         super.updateItem(item, empty);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-
-
         if(empty || item == null) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);

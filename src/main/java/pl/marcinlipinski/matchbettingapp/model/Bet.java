@@ -6,24 +6,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Bet implements Serializable {
+public class Bet{
     @Id
-    private long id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     private LocalDateTime endDate;
     private LocalDateTime betDate;
     private double inputValue;
     private double oddValue;
     private double possibleWinValue;
-
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "bets")
+    Set<Match> matches = new HashSet<>();
 }

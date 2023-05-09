@@ -51,7 +51,7 @@ public class MatchListController {
 
     public void searchForMatches(int leagueId){
         lista.getItems().clear();
-        lista.setItems(matchService.post(leagueId));
+        lista.setItems(matchService.searchByLeagueId(leagueId));
         lista.refresh();
     }
 }

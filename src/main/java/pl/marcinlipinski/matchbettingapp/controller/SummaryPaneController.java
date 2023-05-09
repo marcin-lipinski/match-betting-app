@@ -71,6 +71,7 @@ public class SummaryPaneController {
             }
             setTexts();
         });
+        refreshAccountBalanceText();
     }
     
     private void setTexts(){

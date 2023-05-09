@@ -10,11 +10,10 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.repositor.MatchRepository;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.HashSet;
 
 @Service
 public class MatchService {
@@ -27,7 +26,7 @@ public class MatchService {
         this.matchRepository = matchRepository;
     }
 
-    public ObservableList<Match> post(int leagueId){
+    public ObservableList<Match> searchByLeagueId(int leagueId){
         listOfMatches.clear();
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plusWeeks(1);
@@ -64,10 +63,6 @@ public class MatchService {
         }
     }
 
-    public List<Match> getAllByBetId(long betId){
-        return matchRepository.findAll().stream().filter(m -> m.getBetId() == betId).toList();
-    }
-
     public void deleteAll() {
         matchRepository.deleteAll();
     }
@@ -81,13 +76,7 @@ public class MatchService {
 
         var jsonArray = responseToDataObject(response);
         var refreshedMatch = parseJSON(jsonArray);
-        matchRepository.deleteById(refreshedMatch.getId());
         matchRepository.save(refreshedMatch);
-    }
-
-    public void save(Match match){
-        if(matchRepository.existsById(match.getId())) matchRepository.deleteById(match.getId());
-        matchRepository.save(match);
     }
 
     private Match parseJSON(JSONObject json){
@@ -106,7 +95,8 @@ public class MatchService {
                 .drawTeamOdd(1.00)
                 .awayTeamOdd(1.00)
                 .leagueName(json.getJSONObject("league").getString("name"))
-                .leagueName(json.getJSONObject("league").getString("logo")).build();
+                .leagueName(json.getJSONObject("league").getString("logo"))
+                .bets(new HashSet<>()).build();
 
         if(!json.isNull("main_odds")){
             match.setHomeTeamOdd(json.getJSONObject("main_odds").getJSONObject("outcome_1").getDouble("value"));
