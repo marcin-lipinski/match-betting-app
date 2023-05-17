@@ -42,22 +42,18 @@ public class AccountResetController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(new Scene(dialog));
         resetAccountButton.setOnAction(
-            actionEvent -> {
-                betService.deleteAll();
-                matchService.deleteAll();
-                userService.newUser();
-                summaryPaneController.getController().refreshAccountBalanceText();
-                stage.close();
-            }
+                actionEvent -> {
+                    betService.deleteAll();
+                    matchService.deleteAll();
+                    userService.newUser();
+                    summaryPaneController.getController().refreshAccountBalanceText();
+                    stage.close();
+                }
         );
         exitButton.setOnAction(actionEvent -> stage.close());
         stage.focusedProperty().addListener((ov, onHidden, onShown) -> {
-            if(!stage.isFocused())
+            if (!stage.isFocused())
                 Platform.runLater(() -> stage.requestFocus());
         });
-    }
-
-    public void show() {
-        stage.show();
     }
 }

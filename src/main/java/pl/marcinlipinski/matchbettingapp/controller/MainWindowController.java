@@ -20,7 +20,8 @@ public class MainWindowController {
     }
 
     @FXML
-    public void initialize() {}
+    public void initialize() {
+    }
 
     public void refresh() {
         betListController.getController().searchForBets();

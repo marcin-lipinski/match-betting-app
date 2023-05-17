@@ -13,28 +13,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUser(){
+    public User getUser() {
         return userRepository.findById(userId).get();
     }
 
-    public double getAccountValue(){
+    public double getAccountValue() {
         return getUser().getAccountBalance();
-    }
-
-    public void increaseAccountBalance(double value){
-        var user = getUser();
-
-        user.setAccountBalance(getAccountValue() + value);
-        userRepository.deleteAll();
-        userRepository.save(user);
-    }
-
-    public void decreaseAccountBalance(double value){
-        var user = getUser();
-        System.out.println(user.getAccountBalance());
-        user.setAccountBalance(getAccountValue() - value);
-        userRepository.deleteAll();
-        userRepository.save(user);
     }
 
     public void newUser() {

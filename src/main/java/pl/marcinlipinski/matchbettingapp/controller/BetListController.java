@@ -30,7 +30,7 @@ public class BetListController {
         searchForBets();
     }
 
-    public void searchForBets(){
+    public void searchForBets() {
         betListView.getItems().clear();
         betListView.setItems(betSerivce.getAll());
         betListView.refresh();

@@ -11,6 +11,7 @@ import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.League;
+
 import java.io.IOException;
 
 @Controller
@@ -34,8 +35,7 @@ public class LeaguesCell extends ListCell<League> {
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -45,11 +45,10 @@ public class LeaguesCell extends ListCell<League> {
     protected void updateItem(League item, boolean empty) {
         super.updateItem(item, empty);
 
-        if(empty || item == null) {
+        if (empty || item == null) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
-        }
-        else {
+        } else {
             leagueName.setText(item.getName());
             leagueLogo.setImage(new Image(item.getLogo()));
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);

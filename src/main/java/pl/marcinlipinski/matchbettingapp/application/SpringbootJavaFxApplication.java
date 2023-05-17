@@ -9,7 +9,6 @@ import pl.marcinlipinski.matchbettingapp.MatchBettingAppApplication;
 
 
 public class SpringbootJavaFxApplication extends Application {
-
     private ConfigurableApplicationContext context;
 
     @Override

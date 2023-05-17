@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Bet;
+
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
@@ -23,15 +24,14 @@ public class BetCell extends ListCell<Bet> {
     public BetCell(BetListController betListController) {
         this.betListController = betListController;
         loadFXML();
-        this.setOnMouseClicked(mouseEvent ->
-            {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(mouseEvent.getClickCount() == 2){
-                        if(this.getStyleClass().contains("content")){
-                            betListController.betMatchList.getController().show();
-                            betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
-                        }
+        this.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                    if (this.getStyleClass().contains("content")) {
+                        betListController.betMatchList.getController().show();
+                        betListController.betMatchList.getController().loadData(this.itemProperty().get().getId());
                     }
+                }
             }
         });
     }
@@ -68,9 +68,9 @@ public class BetCell extends ListCell<Bet> {
         }
     }
 
-    private String format(double v){
+    private String format(double v) {
         int fv = (int) (v * 100);
-        if(fv <= 0) return "0.0";
+        if (fv <= 0) return "0.0";
         Double dv = ((double) fv) / 100;
         return String.valueOf(dv);
     }

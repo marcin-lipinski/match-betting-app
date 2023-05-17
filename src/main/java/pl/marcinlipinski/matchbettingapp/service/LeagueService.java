@@ -14,7 +14,7 @@ public class LeagueService {
         this.leagueRepository = leagueRepository;
     }
 
-    public ObservableList<League> getAllLeagues(){
+    public ObservableList<League> getAllLeagues() {
         return FXCollections.observableArrayList(leagueRepository.findAll());
     }
 }

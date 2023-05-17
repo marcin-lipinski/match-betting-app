@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.repository.BetRepository;
 import pl.marcinlipinski.matchbettingapp.model.Bet;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 
 @Service
-//@RequiredArgsConstructor
 public class BetService {
     private final BetRepository betRepository;
     private final MatchService matchService;
@@ -26,11 +26,12 @@ public class BetService {
         listOfMatches = FXCollections.observableArrayList();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         betRepository.deleteAll();
     }
+
     @Transactional
-    public void createBet(double inputValue, double oddValue, double possibleWinValue, List<Match> matches){
+    public void createBet(double inputValue, double oddValue, double possibleWinValue, List<Match> matches) {
         var endDate = matches.stream().map(m -> m.getStartTime().plusMinutes(150)).max(LocalDateTime::compareTo).orElse(LocalDateTime.now());
 
         Bet bet = Bet.builder()
@@ -43,13 +44,13 @@ public class BetService {
 
         bet = betRepository.save(bet);
 
-        for(var match : matches) {
+        for (var match : matches) {
             match.addBet(bet);
             matchService.matchRepository.save(match);
         }
     }
 
-    public ObservableList<Bet> getAll(){
+    public ObservableList<Bet> getAll() {
         listOfBets.clear();
         listOfBets.addAll(betRepository.findAll());
         return listOfBets;

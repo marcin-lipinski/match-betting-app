@@ -37,8 +37,7 @@ public class BetMatchCell extends ListCell<Match> {
             loader.setController(this);
             loader.setRoot(this);
             loader.load();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -49,11 +48,10 @@ public class BetMatchCell extends ListCell<Match> {
         super.updateItem(item, empty);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        if(empty || item == null) {
+        if (empty || item == null) {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
-        }
-        else {
+        } else {
             homeTeamName.setText(item.getHomeTeam());
             awayTeamName.setText(item.getAwayTeam());
             matchResultText.setText(item.getHomeTeamScore() + ":" + item.getAwayTeamScore());

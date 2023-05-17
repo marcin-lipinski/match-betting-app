@@ -21,7 +21,6 @@ import pl.marcinlipinski.matchbettingapp.service.MatchService;
 @FxmlView("BetMatchList.fxml")
 public class BetMatchListController {
     private final BetService betService;
-    private final MatchService matchService;
     @FXML
     public ListView<Match> betMatchListView;
     @FXML
@@ -31,13 +30,12 @@ public class BetMatchListController {
     @FXML
     private ProgressBar progressBar;
 
-    public BetMatchListController(BetService betService, MatchService matchService) {
+    public BetMatchListController(BetService betService) {
         this.betService = betService;
-        this.matchService = matchService;
     }
 
     @SneakyThrows
-    public void loadData(long betId){
+    public void loadData(long betId) {
         stage.setTitle("Losing money - bet #" + betId);
         var matches = betService.getMatchesByBetId(betId).stream().toList();
         var size = matches.size();
@@ -45,8 +43,7 @@ public class BetMatchListController {
         {
             int counter = 0;
             progressBar.setVisible(true);
-            for(var match : matches){
-                //matchService.getRefreshedMatchByBetId(match);
+            for (var match : matches) {
                 counter++;
                 try {
                     Thread.sleep(200);
@@ -54,16 +51,16 @@ public class BetMatchListController {
                     throw new RuntimeException(e);
                 }
                 int finalCounter = counter;
-                Platform.runLater(() -> progressBar.setProgress((double) finalCounter /size));
+                Platform.runLater(() -> progressBar.setProgress((double) finalCounter / size));
             }
             progressBar.setVisible(false);
         });
         thread.setDaemon(true);
 
         thread.start();
-        try{
+        try {
             thread.wait();
-        }catch(Exception exception){
+        } catch (Exception exception) {
             betMatchListView.getItems().clear();
             betMatchListView.setItems(betService.getMatchesByBetId(betId));
             betMatchListView.refresh();
