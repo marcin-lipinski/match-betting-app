@@ -1,51 +1,38 @@
 package pl.marcinlipinski.matchbettingapp.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-import pl.marcinlipinski.matchbettingapp.service.UserService;
+
 import java.util.HashMap;
 
 @Component
 @Controller
 @FxmlView
 public class SummaryPaneController {
-    private final FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog;
-    private final FxControllerAndView<MainWindowController, AnchorPane> mainWindowController;
-    private final FxControllerAndView<MatchListController, Node> matchListController;
     private final BetService betService;
-    private final UserService userService;
     @FXML
-    public Text possibleWinValueText, oddValueText, accountBalanceText;
+    public Text possibleWinValueText, oddValueText;
     @FXML
     public TextField bidTextField;
     @FXML
-    public Button createBetButton, openResetAccountDialogButton;
+    public Button createBetButton;
     private double oddValue, inputValue, possibleWinValue;
     private HashMap<Match, String> matches;
 
-    public SummaryPaneController(FxControllerAndView<AccountResetController, AnchorPane> accountResetDialog, FxControllerAndView<MatchListController, AnchorPane> matchListController, FxControllerAndView<MainWindowController, AnchorPane> mainWindowController, BetService betService, UserService userService, FxControllerAndView<MatchListController, Node> matchListController1) {
-        this.mainWindowController = mainWindowController;
+    public SummaryPaneController(BetService betService) {
         this.betService = betService;
-        this.userService = userService;
-        this.accountResetDialog = accountResetDialog;
-        this.matchListController = matchListController1;
     }
 
     @FXML
     public void initialize() {
         createBetButton.setDisable(true);
-        openResetAccountDialogButton.setDisable(true);
         matches = new HashMap<>();
         oddValue = 0.00;
         createBetButton.setOnMouseClicked(mouseEvent -> createBet());
@@ -61,7 +48,6 @@ public class SummaryPaneController {
             }
             setTexts();
         });
-        refreshAccountBalanceText();
     }
 
     private void setTexts() {
@@ -115,15 +101,6 @@ public class SummaryPaneController {
             case "X" -> match.getDrawTeamOdd();
             default -> 1.0;
         };
-    }
-
-    @FXML
-    public void refreshAccountBalanceText() {
-        Thread thread = new Thread(() -> {
-            var value = userService.getAccountValue();
-            Platform.runLater(() -> accountBalanceText.setText(String.valueOf(value)));
-        });
-        thread.start();
     }
 
     private String format(double v) {

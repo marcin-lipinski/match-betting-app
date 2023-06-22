@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class League{
+public class League {
     @Id
     private int id;
     private String name;

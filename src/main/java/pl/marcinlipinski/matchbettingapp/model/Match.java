@@ -7,12 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name="event")
-@Table(name="event")
+@Entity(name = "event")
+@Table(name = "event")
 @AllArgsConstructor
 @SuperBuilder
 @NoArgsConstructor
@@ -39,8 +40,8 @@ public class Match {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "bet_event",
-            joinColumns = { @JoinColumn(name = "bet_id") },
-            inverseJoinColumns = { @JoinColumn(name = "event_id") }
+            joinColumns = {@JoinColumn(name = "bet_id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id")}
     )
     private Set<Bet> bets = new HashSet<>();
 

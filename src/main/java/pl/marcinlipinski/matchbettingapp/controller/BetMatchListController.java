@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import pl.marcinlipinski.matchbettingapp.model.Match;
 import pl.marcinlipinski.matchbettingapp.service.BetService;
-import pl.marcinlipinski.matchbettingapp.service.MatchService;
 
 @Component
 @Controller
@@ -30,6 +30,9 @@ public class BetMatchListController {
     @FXML
     private ProgressBar progressBar;
 
+    @Value("${app.logo.url}")
+    private String appLogo;
+
     public BetMatchListController(BetService betService) {
         this.betService = betService;
     }
@@ -43,7 +46,7 @@ public class BetMatchListController {
         {
             int counter = 0;
             progressBar.setVisible(true);
-            for (var match : matches) {
+            for (var ignored : matches) {
                 counter++;
                 try {
                     Thread.sleep(200);
@@ -72,7 +75,7 @@ public class BetMatchListController {
         this.stage = new Stage();
         stage.setScene(new Scene(dialog));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("file:src/main/resources/icon.png"));
+        stage.getIcons().add(new Image(appLogo));
         betMatchListView.setCellFactory(listView -> new BetMatchCell());
     }
 

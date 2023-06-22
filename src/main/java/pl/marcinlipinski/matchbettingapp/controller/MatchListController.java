@@ -38,9 +38,7 @@ public class MatchListController {
         leaguesComboBox.setItems(leagueService.getAllLeagues());
         leaguesComboBox.setCellFactory(comboBox -> new LeaguesCell(this));
         leaguesComboBox.setButtonCell(new LeaguesCell(this));
-        leaguesComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            searchForMatches(((League) newValue).getId());
-        });
+        leaguesComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> searchForMatches(((League) newValue).getId()));
 
         leaguesComboBox.getSelectionModel().selectFirst();
         searchForMatches(((League) leaguesComboBox.getValue()).getId());

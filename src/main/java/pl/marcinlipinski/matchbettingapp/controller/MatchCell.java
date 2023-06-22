@@ -2,16 +2,13 @@ package pl.marcinlipinski.matchbettingapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -70,20 +67,7 @@ public class MatchCell extends ListCell<Match> {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
-            homeTeamName.setText(item.getHomeTeam());
-            awayTeamName.setText(item.getAwayTeam());
-            matchResultText.setText(item.getHomeTeamScore() + ":" + item.getAwayTeamScore());
-            matchTimeText.setText(item.getStartTime().format(formatter));
-            homeTeamOddText.setText(String.valueOf(item.getHomeTeamOdd()));
-            awayTeamOddText.setText(item.getAwayTeamOdd().toString());
-            drawOddText.setText(String.valueOf(item.getDrawTeamOdd()));
-            homeTeamName.setTextAlignment(TextAlignment.CENTER);
-            awayTeamName.setTextAlignment(TextAlignment.CENTER);
-            matchResultText.setTextAlignment(TextAlignment.CENTER);
-            matchTimeText.setTextAlignment(TextAlignment.CENTER);
-
-            homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
-            awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));
+            BetMatchCell.setValues(item, formatter, homeTeamName, awayTeamName, matchResultText, matchTimeText, homeTeamOddText, awayTeamOddText, drawOddText, homeTeamLogo, awayTeamLogo);
 
             for (var button : buttons.keySet()) {
                 button.setStyle(ustyle);

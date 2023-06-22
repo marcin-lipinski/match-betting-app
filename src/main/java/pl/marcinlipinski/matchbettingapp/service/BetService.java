@@ -26,10 +26,6 @@ public class BetService {
         listOfMatches = FXCollections.observableArrayList();
     }
 
-    public void deleteAll() {
-        betRepository.deleteAll();
-    }
-
     @Transactional
     public void createBet(double inputValue, double oddValue, double possibleWinValue, List<Match> matches) {
         var endDate = matches.stream().map(m -> m.getStartTime().plusMinutes(150)).max(LocalDateTime::compareTo).orElse(LocalDateTime.now());

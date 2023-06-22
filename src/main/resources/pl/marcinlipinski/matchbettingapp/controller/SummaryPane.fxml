@@ -6,9 +6,6 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="SummaryPane" prefHeight="650.0" prefWidth="400.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.marcinlipinski.matchbettingapp.controller.SummaryPaneController">
-    <Button fx:id="openResetAccountDialogButton" layoutX="20.0" layoutY="15.0" mnemonicParsing="false" text="Account reset" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS"/>
-    <Text layoutX="199.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account balance:" wrappingWidth="134.0"/>
-    <Text fx:id="accountBalanceText" layoutX="347.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00"/>
     <TextField fx:id="bidTextField" layoutX="153.0" layoutY="573.0" prefHeight="25.0" prefWidth="92.0" promptText="Your input" />
     <Text layoutX="38.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current odd:" textAlignment="CENTER"/>
     <Text fx:id="oddValueText" layoutX="59.0" layoutY="583.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00.00" textAlignment="CENTER"/>

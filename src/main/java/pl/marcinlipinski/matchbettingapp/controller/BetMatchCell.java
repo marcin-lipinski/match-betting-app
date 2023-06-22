@@ -52,23 +52,27 @@ public class BetMatchCell extends ListCell<Match> {
             setText(null);
             setContentDisplay(ContentDisplay.TEXT_ONLY);
         } else {
-            homeTeamName.setText(item.getHomeTeam());
-            awayTeamName.setText(item.getAwayTeam());
-            matchResultText.setText(item.getHomeTeamScore() + ":" + item.getAwayTeamScore());
-            matchTimeText.setText(item.getStartTime().format(formatter));
-            homeTeamOddText.setText(String.valueOf(item.getHomeTeamOdd()));
-            awayTeamOddText.setText(item.getAwayTeamOdd().toString());
-            drawOddText.setText(String.valueOf(item.getDrawTeamOdd()));
-            homeTeamName.setTextAlignment(TextAlignment.CENTER);
-            awayTeamName.setTextAlignment(TextAlignment.CENTER);
-            matchResultText.setTextAlignment(TextAlignment.CENTER);
-            matchTimeText.setTextAlignment(TextAlignment.CENTER);
-
-            homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
-            awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));
+            setValues(item, formatter, homeTeamName, awayTeamName, matchResultText, matchTimeText, homeTeamOddText, awayTeamOddText, drawOddText, homeTeamLogo, awayTeamLogo);
 
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
+    }
+
+    static void setValues(Match item, DateTimeFormatter formatter, Label homeTeamName, Label awayTeamName, Label matchResultText, Label matchTimeText, Text homeTeamOddText, Text awayTeamOddText, Text drawOddText, ImageView homeTeamLogo, ImageView awayTeamLogo) {
+        homeTeamName.setText(item.getHomeTeam());
+        awayTeamName.setText(item.getAwayTeam());
+        matchResultText.setText(item.getHomeTeamScore() + ":" + item.getAwayTeamScore());
+        matchTimeText.setText(item.getStartTime().format(formatter));
+        homeTeamOddText.setText(String.valueOf(item.getHomeTeamOdd()));
+        awayTeamOddText.setText(item.getAwayTeamOdd().toString());
+        drawOddText.setText(String.valueOf(item.getDrawTeamOdd()));
+        homeTeamName.setTextAlignment(TextAlignment.CENTER);
+        awayTeamName.setTextAlignment(TextAlignment.CENTER);
+        matchResultText.setTextAlignment(TextAlignment.CENTER);
+        matchTimeText.setTextAlignment(TextAlignment.CENTER);
+
+        homeTeamLogo.setImage(new Image(item.getHomeTeamLogo()));
+        awayTeamLogo.setImage(new Image(item.getAwayTeamLogo()));
     }
 }
 
