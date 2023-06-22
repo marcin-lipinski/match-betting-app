@@ -47,7 +47,6 @@
     -fx-background-color: #D2CCB1;
 }
 
-
 /*TAB*/
 .tab{
     -fx-background-insets: 0 1 0 1,0,0;
@@ -77,7 +76,6 @@
 .tab-header-area .tab-header-background {
     -fx-background-color: #69A297;
 }
-
 
 /*COMBOBOX*/
 .combo-box .arrow, .combo-box .arrow-button{
