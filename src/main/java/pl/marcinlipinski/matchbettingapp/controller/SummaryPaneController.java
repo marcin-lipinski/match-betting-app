@@ -55,17 +55,15 @@ public class SummaryPaneController {
         inputValue = Double.parseDouble(inp.isEmpty() ? "0.0" : inp);
         possibleWinValue = oddValue * inputValue;
 
-        if (inputValue > 0) createBetButton.setDisable(false);
+        createBetButton.setDisable(!(inputValue > 0) || matches.size() == 0);
         possibleWinValueText.setText(format(possibleWinValue));
         oddValueText.setText(format(oddValue));
     }
 
     private void createBet() {
-        if (matches.size() > 0) {
-            betService.createBet(inputValue, oddValue, possibleWinValue, matches.keySet().stream().toList());
-            createBetButton.setDisable(true);
-            bidTextField.setText("Your input");
-        }
+        betService.createBet(inputValue, oddValue, possibleWinValue, matches.keySet().stream().toList());
+        createBetButton.setDisable(true);
+        bidTextField.setText("Your input");
     }
 
     public void addMatch(Match match, String type) {
